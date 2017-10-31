@@ -4,7 +4,7 @@
 #   Package:  openwhisk-helloworld
 #   Action:   openwhisk-helloworld/helloworld.js
 
-package:
+packages:
   $PACKAGE_NAME:
     version: 1.0
     license: Apache-2.0
