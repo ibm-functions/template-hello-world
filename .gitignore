@@ -1,0 +1,8 @@
+# Tests
+/tests/build
+
+# Gradle
+.gradle
+
+# IntelliJ
+*.iml 

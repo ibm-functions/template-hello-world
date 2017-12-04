@@ -12,10 +12,10 @@
 import sys
 
 def main(dict):
-    if 'message' in dict:
-        name = dict['message']
-    else:
-        name = 'stranger'
-    greeting = 'Hello ' + name + '!'
-    print(greeting)
-    return {'greeting':greeting}
+  if 'message' in dict:
+    name = dict['message']
+  else:
+    name = 'stranger'
+  greeting = 'Hello ' + name + '!'
+  print(greeting)
+  return {'greeting':greeting}

@@ -13,9 +13,9 @@
   *
   */
 func main(args: [String:Any]) -> [String:Any] {
-      if let message = args["message"] as? String {
-          return [ "greeting" : "Hello \(message)!" ]
-      } else {
-          return [ "greeting" : "Hello stranger!" ]
-      }
+  if let message = args["message"] as? String {
+    return [ "greeting" : "Hello \(message)!" ]
+  } else {
+    return [ "greeting" : "Hello stranger!" ]
+  }
 }

@@ -13,5 +13,9 @@
   *
   */
 function main(params) {
-	return { "message": "you sent me " + params.message };
+  if (params.message) {
+    return { "greeting": "Hello " + params.message };
+  } else {
+    return {"greeting": "Hello stranger!"}
+  }
 }
