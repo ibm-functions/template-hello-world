@@ -1,8 +1,10 @@
 # Tests
 /tests/build
+/tests/out
 
 # Gradle
 .gradle
 
 # IntelliJ
-*.iml 
+*.iml
+*.idea 
