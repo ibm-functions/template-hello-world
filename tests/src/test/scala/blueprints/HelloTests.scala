@@ -43,7 +43,7 @@ class HelloTests extends TestHelpers
     behavior of "Hello World Blueprint"
 
     /**
-     * Test the node "hello world" blueprint
+     * Test the nodejs "hello world" blueprint
      */
      it should "invoke helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
        val name = "helloNode"
