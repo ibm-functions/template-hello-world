@@ -40,10 +40,10 @@ class HelloTests extends TestHelpers
     val pythonfolder = "../runtimes/python/actions";
     val swiftfolder = "../runtimes/swift/actions";
 
-    behavior of "Hello World Blueprint"
+    behavior of "Hello World Template"
 
     /**
-     * Test the nodejs "hello world" blueprint
+     * Test the nodejs "hello world" template
      */
      it should "invoke helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
        val name = "helloNode"
@@ -68,7 +68,7 @@ class HelloTests extends TestHelpers
         }
       }
      /**
-      * Test the php "hello world" blueprint
+      * Test the php "hello world" template
       */
       it should "invoke helloworld.php and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
         val name = "helloPhp"
@@ -93,7 +93,7 @@ class HelloTests extends TestHelpers
         }
       }
       /**
-       * Test the python "hello world" blueprint
+       * Test the python "hello world" template
        */
        it should "invoke helloworld.py and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
          val name = "helloPython"
@@ -118,7 +118,7 @@ class HelloTests extends TestHelpers
          }
        }
        /**
-        * Test the swift "hello world" blueprint
+        * Test the swift "hello world" template
         */
         it should "invoke helloworld.swift and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
           val name = "helloSwift"
