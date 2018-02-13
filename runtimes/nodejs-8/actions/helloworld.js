@@ -12,10 +12,7 @@
   *         It will be the output of this action.
   *
   */
-function main(params) {
-  if (params.name) {
-    return { "greeting": "Hello " + params.name };
-  } else {
-    return {"greeting": "Hello stranger!"}
+  function main(params) {
+    const name = params.name || "stranger"
+    return { "greeting": "Hello " + name + "!"};
   }
-}

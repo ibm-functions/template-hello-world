@@ -53,7 +53,7 @@ class HelloTests extends TestHelpers
          action.create(name, file)
        }
 
-       withActivation(wsk.activation, wsk.action.invoke(name, Map("message" -> "Mindy".toJson))) {
+       withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
          _.response.result.get.toString should include("Mindy")
        }
      }
@@ -79,7 +79,7 @@ class HelloTests extends TestHelpers
           action.create(name, file)
         }
 
-        withActivation(wsk.activation, wsk.action.invoke(name, Map("message" -> "Mindy".toJson))) {
+        withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
           _.response.result.get.toString should include("Mindy")
         }
       }
@@ -104,7 +104,7 @@ class HelloTests extends TestHelpers
           action.create(name, file)
         }
 
-        withActivation(wsk.activation, wsk.action.invoke(name, Map("message" -> "Mindy".toJson))) {
+        withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
           _.response.result.get.toString should include("Mindy")
         }
       }
@@ -129,7 +129,7 @@ class HelloTests extends TestHelpers
            action.create(name, file)
          }
 
-         withActivation(wsk.activation, wsk.action.invoke(name, Map("message" -> "Mindy".toJson))) {
+         withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
            _.response.result.get.toString should include("Mindy")
          }
        }
@@ -154,7 +154,7 @@ class HelloTests extends TestHelpers
             action.create(name, file)
           }
 
-          withActivation(wsk.activation, wsk.action.invoke(name, Map("message" -> "Mindy".toJson))) {
+          withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
             _.response.result.get.toString should include("Mindy")
           }
         }
