@@ -12,3 +12,4 @@ packages:
     actions:
       helloworld:
         function: actions/helloworld.py
+        runtime: python:3
