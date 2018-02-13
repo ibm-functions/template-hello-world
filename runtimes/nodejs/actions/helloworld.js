@@ -6,15 +6,15 @@
   *        which must be a JSON object.
   *
   * In this case, the params variable will look like:
-  *     { "message": "xxxx" }
+  *     { "name": "xxxx" }
   *
   * @return which must be a JSON object.
   *         It will be the output of this action.
   *
   */
 function main(params) {
-  if (params.message) {
-    return { "greeting": "Hello " + params.message };
+  if (params.name) {
+    return { "greeting": "Hello " + params.name };
   } else {
     return {"greeting": "Hello stranger!"}
   }

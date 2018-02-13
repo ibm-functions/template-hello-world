@@ -12,8 +12,8 @@
 import sys
 
 def main(dict):
-  if 'message' in dict:
-    name = dict['message']
+  if 'name' in dict:
+    name = dict['name']
   else:
     name = 'stranger'
   greeting = 'Hello ' + name + '!'

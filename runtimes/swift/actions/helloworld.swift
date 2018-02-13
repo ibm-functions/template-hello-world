@@ -6,15 +6,15 @@
   *        which must be a JSON object.
   *
   * In this case, the params variable will look like:
-  *     { "message": "xxxx" }
+  *     { "name": "xxxx" }
   *
   * @return which must be a JSON object.
   *         It will be the output of this action.
   *
   */
 func main(args: [String:Any]) -> [String:Any] {
-  if let message = args["message"] as? String {
-    return [ "greeting" : "Hello \(message)!" ]
+  if let name = args["name"] as? String {
+    return [ "greeting" : "Hello \(name)!" ]
   } else {
     return [ "greeting" : "Hello stranger!" ]
   }
