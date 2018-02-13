@@ -12,3 +12,4 @@ packages:
     actions:
       helloworld:
         function: actions/helloworld.swift
+        runtime: swift:3.1.1
