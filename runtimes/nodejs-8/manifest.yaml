@@ -12,4 +12,4 @@ packages:
     actions:
       helloworld:
         function: actions/helloworld.js
-        runtime: nodejs@8
+        runtime: nodejs:8
