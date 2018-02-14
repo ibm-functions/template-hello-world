@@ -46,7 +46,7 @@ class HelloTests extends TestHelpers
     /**
      * Test the nodejs 8 "hello world" template
      */
-     it should "invoke helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+     it should "invoke nodejs 8 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
        val name = "helloNode"
        val file = Some(new File(nodejs8folder, "helloworld.js").toString());
        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
@@ -57,7 +57,7 @@ class HelloTests extends TestHelpers
          _.response.result.get.toString should include("Mindy")
        }
      }
-      it should "invoke helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
         val name = "helloNode"
         val file = Some(new File(nodejs8folder, "helloworld.js").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
@@ -72,7 +72,7 @@ class HelloTests extends TestHelpers
       /**
        * Test the nodejs 6 "hello world" template
        */
-      it should "invoke helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      it should "invoke nodejs 6 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
         val name = "helloNode"
         val file = Some(new File(nodejs6folder, "helloworld.js").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
@@ -83,7 +83,7 @@ class HelloTests extends TestHelpers
           _.response.result.get.toString should include("Mindy")
         }
       }
-       it should "invoke helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+       it should "invoke nodejs 6 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
          val name = "helloNode"
          val file = Some(new File(nodejs6folder, "helloworld.js").toString());
          assetHelper.withCleaner(wsk.action, name) { (action, _) =>
