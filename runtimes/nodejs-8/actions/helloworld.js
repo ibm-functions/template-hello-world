@@ -12,7 +12,11 @@
   *         It will be the output of this action.
   *
   */
-  function main(params) {
-    const name = params.name || "stranger"
-    return { "greeting": "Hello " + name + "!"};
+function main(params) {
+  if (params.name) {
+    return { greeting: `Hello ${params.name}` };
   }
+  return { greeting: 'Hello stranger!' };
+}
+
+exports.main = main;
