@@ -12,4 +12,4 @@ packages:
     actions:
       helloworld:
         function: actions/helloworld.py
-        runtime: python:3.6.4
+        runtime: python:3
