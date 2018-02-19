@@ -1,4 +1,3 @@
-<?php
 /**
   *
   * main() will be invoked when you Run This Action.
@@ -13,10 +12,11 @@
   *         It will be the output of this action.
   *
   */
-function main(array $args) : array
-{
-  $name = $args["name"] ?? "stranger";
-  $greeting = "Hello $name!";
-  echo $greeting;
-  return ["greeting" => $greeting];
+function main(params) {
+  if (params.name) {
+    return { greeting: `Hello ${params.name}` };
+  }
+  return { greeting: 'Hello stranger!' };
 }
+
+exports.main = main;

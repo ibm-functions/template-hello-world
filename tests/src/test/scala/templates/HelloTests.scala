@@ -35,30 +35,31 @@ class HelloTests extends TestHelpers
     val wsk = new Wsk()
 
     //set parameters for deploy tests
-    val nodejsfolder = "../runtimes/nodejs/actions";
-    val phpfolder = "../runtimes/php/actions";
-    val pythonfolder = "../runtimes/python/actions";
-    val swiftfolder = "../runtimes/swift/actions";
+    val nodejs8folder = "../runtimes/nodejs-8/actions";
+    val nodejs6folder = "../runtimes/nodejs-6/actions";
+    val phpfolder = "../runtimes/php-7.1/actions";
+    val pythonfolder = "../runtimes/python-3/actions";
+    val swiftfolder = "../runtimes/swift-3.1.1/actions";
 
     behavior of "Hello World Template"
 
     /**
-     * Test the nodejs "hello world" template
+     * Test the nodejs 8 "hello world" template
      */
-     it should "invoke helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+     it should "invoke nodejs 8 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
        val name = "helloNode"
-       val file = Some(new File(nodejsfolder, "helloworld.js").toString());
+       val file = Some(new File(nodejs8folder, "helloworld.js").toString());
        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
          action.create(name, file)
        }
 
-       withActivation(wsk.activation, wsk.action.invoke(name, Map("message" -> "Mindy".toJson))) {
+       withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
          _.response.result.get.toString should include("Mindy")
        }
      }
-      it should "invoke helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
         val name = "helloNode"
-        val file = Some(new File(nodejsfolder, "helloworld.js").toString());
+        val file = Some(new File(nodejs8folder, "helloworld.js").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
           action.create(name, file)
         }
@@ -67,8 +68,34 @@ class HelloTests extends TestHelpers
           _.response.result.get.toString should include("stranger")
         }
       }
+
+      /**
+       * Test the nodejs 6 "hello world" template
+       */
+      it should "invoke nodejs 6 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+        val name = "helloNode"
+        val file = Some(new File(nodejs6folder, "helloworld.js").toString());
+        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+          action.create(name, file)
+        }
+
+        withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
+          _.response.result.get.toString should include("Mindy")
+        }
+      }
+       it should "invoke nodejs 6 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+         val name = "helloNode"
+         val file = Some(new File(nodejs6folder, "helloworld.js").toString());
+         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+           action.create(name, file)
+         }
+
+         withActivation(wsk.activation, wsk.action.invoke(name)) {
+           _.response.result.get.toString should include("stranger")
+         }
+       }
      /**
-      * Test the php "hello world" template
+      * Test the php 7.1 "hello world" template
       */
       it should "invoke helloworld.php and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
         val name = "helloPhp"
@@ -77,7 +104,7 @@ class HelloTests extends TestHelpers
           action.create(name, file)
         }
 
-        withActivation(wsk.activation, wsk.action.invoke(name, Map("message" -> "Mindy".toJson))) {
+        withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
           _.response.result.get.toString should include("Mindy")
         }
       }
@@ -93,7 +120,7 @@ class HelloTests extends TestHelpers
         }
       }
       /**
-       * Test the python "hello world" template
+       * Test the python 3 "hello world" template
        */
        it should "invoke helloworld.py and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
          val name = "helloPython"
@@ -102,7 +129,7 @@ class HelloTests extends TestHelpers
            action.create(name, file)
          }
 
-         withActivation(wsk.activation, wsk.action.invoke(name, Map("message" -> "Mindy".toJson))) {
+         withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
            _.response.result.get.toString should include("Mindy")
          }
        }
@@ -118,7 +145,7 @@ class HelloTests extends TestHelpers
          }
        }
        /**
-        * Test the swift "hello world" template
+        * Test the swift 3.1.1 "hello world" template
         */
         it should "invoke helloworld.swift and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
           val name = "helloSwift"
@@ -127,7 +154,7 @@ class HelloTests extends TestHelpers
             action.create(name, file)
           }
 
-          withActivation(wsk.activation, wsk.action.invoke(name, Map("message" -> "Mindy".toJson))) {
+          withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
             _.response.result.get.toString should include("Mindy")
           }
         }
