@@ -38,7 +38,7 @@ class HelloTests extends TestHelpers
     val nodejs8folder = "../runtimes/nodejs-8/actions";
     val nodejs6folder = "../runtimes/nodejs-6/actions";
     val phpfolder = "../runtimes/php-7.1/actions";
-    val pythonfolder = "../runtimes/python-3/actions";
+    val pythonfolder = "../runtimes/python-3.6.4/actions";
     val swiftfolder = "../runtimes/swift-3.1.1/actions";
 
     behavior of "Hello World Template"
