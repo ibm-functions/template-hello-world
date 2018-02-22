@@ -35,11 +35,11 @@ class HelloTests extends TestHelpers
     val wsk = new Wsk()
 
     //set parameters for deploy tests
-    val nodejs8folder = "../runtimes/nodejs-8/actions";
+    val nodejs8folder = "../runtimes/nodejs/actions";
     val nodejs6folder = "../runtimes/nodejs-6/actions";
-    val phpfolder = "../runtimes/php-7.1/actions";
-    val pythonfolder = "../runtimes/python-3.6.4/actions";
-    val swiftfolder = "../runtimes/swift-3.1.1/actions";
+    val phpfolder = "../runtimes/php/actions";
+    val pythonfolder = "../runtimes/python/actions";
+    val swiftfolder = "../runtimes/swift/actions";
 
     behavior of "Hello World Template"
 
@@ -48,9 +48,10 @@ class HelloTests extends TestHelpers
      */
      it should "invoke nodejs 8 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
        val name = "helloNode"
+       val kind = Option("nodejs:8")
        val file = Some(new File(nodejs8folder, "helloworld.js").toString());
        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-         action.create(name, file)
+         action.create(name, file, kind)
        }
 
        withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -59,9 +60,10 @@ class HelloTests extends TestHelpers
      }
       it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
         val name = "helloNode"
+        val kind = Option("nodejs:8")
         val file = Some(new File(nodejs8folder, "helloworld.js").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file)
+          action.create(name, file, kind)
         }
 
         withActivation(wsk.activation, wsk.action.invoke(name)) {
