@@ -12,7 +12,6 @@ cd $WHISKDIR
 tools/build/scanCode.py "$SCRIPTDIR/../.."
 
 # No point to continue with PRs, since encryption is on
-if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then exit 0; fi
 
 cd $WHISKDIR/ansible
 
@@ -28,7 +27,6 @@ cd $WHISKDIR
 ./gradlew distDocker
 
 cd $WHISKDIR/ansible
-
 
 $ANSIBLE_CMD wipe.yml
 $ANSIBLE_CMD openwhisk.yml
