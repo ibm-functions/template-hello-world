@@ -34,6 +34,10 @@ class HelloTests extends TestHelpers
     implicit val wskprops = WskProps()
     val wsk = new Wsk()
 
+    val deployTestRepo = "github.com/ibm-functions/template-hello-world"
+    val nodeRuntimePath = "runtimes/nodejs"
+    val helloWorldAction = "helloworld"
+
     //set parameters for deploy tests
     val nodejs8folder = "../runtimes/nodejs/actions";
     val nodejs6folder = "../runtimes/nodejs-6/actions";
@@ -41,8 +45,31 @@ class HelloTests extends TestHelpers
     val pythonfolder = "../runtimes/python/actions";
     val swiftfolder = "../runtimes/swift/actions";
 
+    def makePostCallWithExpectedResult(params: JsObject, expectedResult: String, expectedCode: Int) = {
+      val response = RestAssured.given()
+          .contentType("application/json\r\n")
+          .config(RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation()))
+          .body(params.toString())
+          .post(deployActionURL)
+      assert(response.statusCode() == expectedCode)
+      response.body.asString should include(expectedResult)
+      response.body.asString.parseJson.asJsObject.getFields("activationId") should have length 1
+    }
+
     behavior of "Hello World Template"
 
+    // test to create the hello world template from github url.  Will use preinstalled folder.
+    it should "create the hello world action from github url" in {
+      makePostCallWithExpectedResult(JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(nodeRuntimePath),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)
+      ), successStatus, 200);
+
+      // clean up after test
+      wsk.action.delete(helloWorldAction)
+    }
     /**
      * Test the nodejs 8 "hello world" template
      */
