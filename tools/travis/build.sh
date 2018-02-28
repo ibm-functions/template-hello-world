@@ -48,6 +48,7 @@ EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
 export OPENWHISK_HOME=$WHISKDIR
 
 # Place this template in correct location to be included in packageDeploy
+mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
 cp -r $ROOTDIR/template-hello-world $PACKAGESDIR/preInstalled/ibm-functions/
 
 cd $PACKAGESDIR/preInstalled
