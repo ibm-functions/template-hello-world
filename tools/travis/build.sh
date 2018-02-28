@@ -51,10 +51,6 @@ export OPENWHISK_HOME=$WHISKDIR
 mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
 cp -r $ROOTDIR/template-hello-world $PACKAGESDIR/preInstalled/ibm-functions/
 
-cd $PACKAGESDIR/preInstalled
-echo "LS HERE"
-ls
-
 # Install the package
 cd $PACKAGESDIR/packageDeploy/packages
 source $PACKAGESDIR/packageDeploy/packages/installCatalog.sh $AUTH_KEY $EDGE_HOST $WSK_CLI

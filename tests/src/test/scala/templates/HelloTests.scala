@@ -26,7 +26,7 @@ import java.io._
 import com.jayway.restassured.RestAssured
 import com.jayway.restassured.config.SSLConfig
 import spray.json.DefaultJsonProtocol.StringJsonFormat
-import spray.json.pimpAny
+import spray.json._
 
 @RunWith(classOf[JUnitRunner])
 class HelloTests extends TestHelpers
