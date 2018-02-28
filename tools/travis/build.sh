@@ -4,7 +4,8 @@
 SCRIPTDIR=$(cd $(dirname "$0") && pwd)
 ROOTDIR="$SCRIPTDIR/../../.."
 WHISKDIR="$ROOTDIR/openwhisk"
-DEPLOYDIR="$ROOTDIR/packageDeploy"
+# DEPLOYDIR="$ROOTDIR/packageDeploy"
+DEPLOYDIR="$WHISKDIR/catalog/extra-packages/packageDeploy"
 
 cd $WHISKDIR
 
