@@ -21,12 +21,17 @@ package packages
 import org.junit.runner.RunWith
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.junit.JUnitRunner
+import common.TestUtils.RunResult
 import common.{TestHelpers, Wsk, WskProps, WskTestHelpers}
 import java.io._
 import com.jayway.restassured.RestAssured
 import com.jayway.restassured.config.SSLConfig
 import spray.json.DefaultJsonProtocol.StringJsonFormat
 import spray.json._
+
+
+import spray.json.DefaultJsonProtocol._
+
 
 @RunWith(classOf[JUnitRunner])
 class HelloTests extends TestHelpers
@@ -36,18 +41,27 @@ class HelloTests extends TestHelpers
     implicit val wskprops = WskProps()
     val wsk = new Wsk()
 
-    val deployTestRepo = "github.com/ibm-functions/template-hello-world"
-    val nodeRuntimePath = "runtimes/nodejs"
+    val deployTestRepo = "https://github.com/ibm-functions/template-hello-world"
     val helloWorldActionPackage = "myPackage/helloworld"
     val deployAction = "/whisk.system/deployWeb/wskdeploy"
     val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
 
     //set parameters for deploy tests
+    val node8RuntimePath = "runtimes/nodejs"
     val nodejs8folder = "../runtimes/nodejs/actions";
+    val nodejs8kind = "nodejs:8"
+    val node6RuntimePath = "runtimes/nodejs-6"
     val nodejs6folder = "../runtimes/nodejs-6/actions";
+    val nodejs6kind = "nodejs:6"
+    val phpRuntimePath = "runtimes/php"
     val phpfolder = "../runtimes/php/actions";
+    val phpkind = "php:7.1"
+    val pythonRuntimePath = "runtimes/python"
     val pythonfolder = "../runtimes/python/actions";
+    val pythonkind = "python:2"
+    val swiftRuntimePath = "runtimes/swift"
     val swiftfolder = "../runtimes/swift/actions";
+    val swiftkind = "swift:3.1.1"
 
     // statuses from deployWeb
     val successStatus = """"status":"success""""
@@ -63,17 +77,102 @@ class HelloTests extends TestHelpers
       response.body.asString.parseJson.asJsObject.getFields("activationId") should have length 1
     }
 
+    def verifyAction(action: RunResult, name: String, kindValue: String): Unit = {
+      val stdout = action.stdout
+      assert(stdout.startsWith(s"ok: got action $name\n"))
+      wsk.parseJsonString(stdout).fields("exec").asJsObject.fields("kind") shouldBe kindValue
+    }
+
     behavior of "Hello World Template"
 
     // test to create the hello world template from github url.  Will use preinstalled folder.
-    it should "create the hello world action from github url" in {
+    it should "create the nodejs 8 hello world action from github url" in {
       makePostCallWithExpectedResult(JsObject(
         "gitUrl" -> JsString(deployTestRepo),
-        "manifestPath" -> JsString(nodeRuntimePath),
+        "manifestPath" -> JsString(node8RuntimePath),
         "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
+
+      val action = wsk.action.get("myPackage/helloworld")
+      verifyAction(action, helloWorldActionPackage, nodejs8kind)
+
+      // clean up after test
+      wsk.action.delete(helloWorldActionPackage)
+    }
+
+    // test to create the hello world template from github url.  Will use preinstalled folder.
+    it should "create the nodejs 6 hello world action from github url" in {
+      makePostCallWithExpectedResult(JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(node6RuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)
+      ), successStatus, 200);
+
+      val action = wsk.action.get("myPackage/helloworld")
+      verifyAction(action, helloWorldActionPackage, nodejs6kind)
+
+      // clean up after test
+      wsk.action.delete(helloWorldActionPackage)
+    }
+
+    // test to create the hello world template from github url.  Will use preinstalled folder.
+    it should "create the php hello world action from github url" in {
+      makePostCallWithExpectedResult(JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(phpRuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)
+      ), successStatus, 200);
+
+      val action = wsk.action.get("myPackage/helloworld")
+      verifyAction(action, helloWorldActionPackage, phpkind)
+
+      // clean up after test
+      wsk.action.delete(helloWorldActionPackage)
+    }
+
+    // test to create the hello world template from github url.  Will use preinstalled folder.
+    it should "create the python hello world action from github url" in {
+      makePostCallWithExpectedResult(JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(pythonRuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)
+      ), successStatus, 200);
+
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+        _.response.result.get.toString should include("stranger")
+      }
+
+      val action = wsk.action.get("myPackage/helloworld")
+      verifyAction(action, helloWorldActionPackage, pythonkind)
+
+      // clean up after test
+      wsk.action.delete(helloWorldActionPackage)
+    }
+
+    // test to create the hello world template from github url.  Will use preinstalled folder.
+    it should "create the swift hello world action from github url" in {
+      makePostCallWithExpectedResult(JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(swiftRuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)
+      ), successStatus, 200);
+
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+        _.response.result.get.toString should include("stranger")
+      }
+
+      val action = wsk.action.get("myPackage/helloworld")
+      verifyAction(action, helloWorldActionPackage, swiftkind)
 
       // clean up after test
       wsk.action.delete(helloWorldActionPackage)
