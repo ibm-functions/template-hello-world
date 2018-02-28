@@ -23,6 +23,8 @@ import org.scalatest.BeforeAndAfterAll
 import org.scalatest.junit.JUnitRunner
 import common.{TestHelpers, Wsk, WskProps, WskTestHelpers}
 import java.io._
+import com.jayway.restassured.RestAssured
+import com.jayway.restassured.config.SSLConfig
 import spray.json.DefaultJsonProtocol.StringJsonFormat
 import spray.json.pimpAny
 
