@@ -39,6 +39,8 @@ class HelloTests extends TestHelpers
     val deployTestRepo = "github.com/ibm-functions/template-hello-world"
     val nodeRuntimePath = "runtimes/nodejs"
     val helloWorldAction = "helloworld"
+    val deployAction = "/whisk.system/deployWeb/wskdeploy"
+    val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
 
     //set parameters for deploy tests
     val nodejs8folder = "../runtimes/nodejs/actions";
@@ -46,6 +48,9 @@ class HelloTests extends TestHelpers
     val phpfolder = "../runtimes/php/actions";
     val pythonfolder = "../runtimes/python/actions";
     val swiftfolder = "../runtimes/swift/actions";
+
+    // statuses from deployWeb
+    val successStatus = """"status":"success""""
 
     def makePostCallWithExpectedResult(params: JsObject, expectedResult: String, expectedCode: Int) = {
       val response = RestAssured.given()
