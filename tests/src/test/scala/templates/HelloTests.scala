@@ -38,7 +38,7 @@ class HelloTests extends TestHelpers
 
     val deployTestRepo = "github.com/ibm-functions/template-hello-world"
     val nodeRuntimePath = "runtimes/nodejs"
-    val helloWorldAction = "helloworld"
+    val helloWorldActionPackage = "myPackage/helloworld"
     val deployAction = "/whisk.system/deployWeb/wskdeploy"
     val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
 
@@ -70,12 +70,13 @@ class HelloTests extends TestHelpers
       makePostCallWithExpectedResult(JsObject(
         "gitUrl" -> JsString(deployTestRepo),
         "manifestPath" -> JsString(nodeRuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
 
       // clean up after test
-      wsk.action.delete(helloWorldAction)
+      wsk.action.delete(helloWorldActionPackage)
     }
     /**
      * Test the nodejs 8 "hello world" template
