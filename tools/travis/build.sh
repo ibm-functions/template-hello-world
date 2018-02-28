@@ -48,7 +48,7 @@ EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
 export OPENWHISK_HOME=$WHISKDIR
 
 # Place this template in correct location to be included in packageDeploy
-cp -r $SCRIPTDIR/template-hello-world $PACKAGESDIR/preInstalled
+cp -r $ROOTDIR/template-hello-world $PACKAGESDIR/preInstalled
 
 # Install the package
 cd $PACKAGESDIR/packageDeploy/packages
