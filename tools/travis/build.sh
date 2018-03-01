@@ -10,8 +10,6 @@ cd $WHISKDIR
 
 tools/build/scanCode.py "$SCRIPTDIR/../.."
 
-# No point to continue with PRs, since encryption is on
-
 cd $WHISKDIR/ansible
 
 ANSIBLE_CMD="ansible-playbook -i environments/local"
