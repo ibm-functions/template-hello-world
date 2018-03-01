@@ -1,4 +1,5 @@
 {
+  "_comment":"This file is currently unused",
   "id": 0,
   "name": "Hello World",
   "description": "This action will accept a single parameter, which must be a JSON object.",
