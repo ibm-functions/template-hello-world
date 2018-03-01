@@ -95,6 +95,10 @@ class HelloTests extends TestHelpers
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
 
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+        _.response.result.get.toString should include("stranger")
+      }
+
       val action = wsk.action.get("myPackage/helloworld")
       verifyAction(action, helloWorldActionPackage, nodejs8kind)
 
@@ -112,6 +116,10 @@ class HelloTests extends TestHelpers
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
 
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+        _.response.result.get.toString should include("stranger")
+      }
+
       val action = wsk.action.get("myPackage/helloworld")
       verifyAction(action, helloWorldActionPackage, nodejs6kind)
 
@@ -128,6 +136,10 @@ class HelloTests extends TestHelpers
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
+
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+        _.response.result.get.toString should include("stranger")
+      }
 
       val action = wsk.action.get("myPackage/helloworld")
       verifyAction(action, helloWorldActionPackage, phpkind)
@@ -231,7 +243,7 @@ class HelloTests extends TestHelpers
          }
        }
      /**
-      * Test the php 7.1 "hello world" template
+      * Test the php "hello world" template
       */
       it should "invoke helloworld.php and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
         val name = "helloPhp"
@@ -256,7 +268,7 @@ class HelloTests extends TestHelpers
         }
       }
       /**
-       * Test the python 3 "hello world" template
+       * Test the python "hello world" template
        */
        it should "invoke helloworld.py and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
          val name = "helloPython"
@@ -281,7 +293,7 @@ class HelloTests extends TestHelpers
          }
        }
        /**
-        * Test the swift 3.1.1 "hello world" template
+        * Test the swift "hello world" template
         */
         it should "invoke helloworld.swift and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
           val name = "helloSwift"
