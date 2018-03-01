@@ -49,19 +49,19 @@ class HelloTests extends TestHelpers
     //set parameters for deploy tests
     val node8RuntimePath = "runtimes/nodejs"
     val nodejs8folder = "../runtimes/nodejs/actions";
-    val nodejs8kind = "nodejs:8"
+    val nodejs8kind = JsString("nodejs:8")
     val node6RuntimePath = "runtimes/nodejs-6"
     val nodejs6folder = "../runtimes/nodejs-6/actions";
-    val nodejs6kind = "nodejs:6"
+    val nodejs6kind = JsString("nodejs:6")
     val phpRuntimePath = "runtimes/php"
     val phpfolder = "../runtimes/php/actions";
-    val phpkind = "php:7.1"
+    val phpkind = JsString("php:7.1")
     val pythonRuntimePath = "runtimes/python"
     val pythonfolder = "../runtimes/python/actions";
-    val pythonkind = "python:2"
+    val pythonkind = JsString("python:2")
     val swiftRuntimePath = "runtimes/swift"
     val swiftfolder = "../runtimes/swift/actions";
-    val swiftkind = "swift:3.1.1"
+    val swiftkind = JsString("swift:3.1.1")
 
     // statuses from deployWeb
     val successStatus = """"status":"success""""
@@ -77,7 +77,7 @@ class HelloTests extends TestHelpers
       response.body.asString.parseJson.asJsObject.getFields("activationId") should have length 1
     }
 
-    def verifyAction(action: RunResult, name: String, kindValue: String): Unit = {
+    def verifyAction(action: RunResult, name: String, kindValue: JsString): Unit = {
       val stdout = action.stdout
       assert(stdout.startsWith(s"ok: got action $name\n"))
       wsk.parseJsonString(stdout).fields("exec").asJsObject.fields("kind") shouldBe kindValue

@@ -11,5 +11,5 @@ packages:
     namespace: _
     actions:
       helloworld:
-        function: actions/helloworld.swift
+        function: actions/helloworlds.swift
         runtime: swift:3.1.1
