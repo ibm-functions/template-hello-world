@@ -11,4 +11,5 @@ packages:
     namespace: _
     actions:
       helloworld:
-        function: actions/helloworld.py
+        function: actions/helloworld.js
+        runtime: nodejs:8

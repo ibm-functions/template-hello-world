@@ -12,4 +12,3 @@ packages:
     actions:
       helloworld:
         function: actions/helloworld.php
-        runtime: php:7.1
