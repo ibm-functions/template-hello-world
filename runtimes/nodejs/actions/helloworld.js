@@ -14,8 +14,9 @@
   */
 function main(params) {
   if (params.name) {
-    return { "greeting": "Hello " + params.name };
-  } else {
-    return {"greeting": "Hello stranger!"}
+    return { greeting: `Hello ${params.name}` };
   }
+  return { greeting: 'Hello stranger!' };
 }
+
+exports.main = main;
