@@ -1,4 +1,5 @@
 {
+  "_comment": "This file is not used, but represents data stored in UI for templates",
   "id": 0,
   "name": "Hello World",
   "description": "This action will accept a single parameter, which must be a JSON object.",
