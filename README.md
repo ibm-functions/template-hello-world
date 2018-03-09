@@ -1,4 +1,5 @@
 # template-hello-world
+[![Build Status](https://travis-ci.org/ibm-functions/template-hello-world.svg?branch=master)](https://travis-ci.org/ibm-functions/template-hello-world)
 
 ### Overview
 You can use this template to deploy some IBM Cloud Functions assets for you.  The assets created by this template are described in the manifest.yaml file, which can be found at `template-hello-world/runtimes/your_language_choice/manifest.yaml`
