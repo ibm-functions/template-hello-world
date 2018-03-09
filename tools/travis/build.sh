@@ -12,7 +12,8 @@ tools/build/scanCode.py "$SCRIPTDIR/../.."
 
 cd $WHISKDIR/ansible
 
-ANSIBLE_CMD="ansible-playbook -i environments/local"
+#ANSIBLE_CMD="ansible-playbook -i environments/local"
+ANSIBLE_CMD="ansible-playbook -i ${ROOTDIR}/ansible/environments/local
 
 $ANSIBLE_CMD setup.yml
 $ANSIBLE_CMD prereq.yml
@@ -22,6 +23,12 @@ $ANSIBLE_CMD initdb.yml
 cd $WHISKDIR
 
 ./gradlew distDocker
+
+docker pull ibmfunctions/action-nodejs-v8
+docker tag ibmfunctions/action-nodejs-v8 whisk/action-nodejs-v8:latest
+
+docker pull ibmfunctions/action-python-v3
+docker tag ibmfunctions/action-python-v3 ibmfunctions/action-python-v3:latest
 
 cd $WHISKDIR/ansible
 
