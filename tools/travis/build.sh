@@ -13,7 +13,7 @@ tools/build/scanCode.py "$SCRIPTDIR/../.."
 cd $WHISKDIR/ansible
 
 #ANSIBLE_CMD="ansible-playbook -i environments/local"
-ANSIBLE_CMD="ansible-playbook -i ${ROOTDIR}/ansible/environments/local
+ANSIBLE_CMD="ansible-playbook -i ${ROOTDIR}/ansible/environments/local"
 
 $ANSIBLE_CMD setup.yml
 $ANSIBLE_CMD prereq.yml
