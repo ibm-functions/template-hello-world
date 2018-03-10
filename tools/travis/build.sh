@@ -16,11 +16,11 @@ tools/build/scanCode.py "$SCRIPTDIR/../.."
 
 ./gradlew distDocker
 
-docker pull openwhisk/controller
-docker tag openwhisk/controller ${IMAGE_PREFIX}/controller
-
-docker pull openwhisk/invoker
-docker tag openwhisk/invoker ${IMAGE_PREFIX}/invoker
+# docker pull openwhisk/controller
+# docker tag openwhisk/controller ${IMAGE_PREFIX}/controller
+#
+# docker pull openwhisk/invoker
+# docker tag openwhisk/invoker ${IMAGE_PREFIX}/invoker
 
 docker pull ibmfunctions/action-nodejs-v8
 docker tag ibmfunctions/action-nodejs-v8 whisk/action-nodejs-v8:latest
@@ -42,9 +42,7 @@ $ANSIBLE_CMD wipe.yml
 $ANSIBLE_CMD openwhisk.yml
 
 cd $WHISKDIR
-VCAP_SERVICES_FILE="$(readlink -f ${WHISKDIR}/../tests/credentials.json)"
-
-ls $WHISKDIR
+VCAP_SERVICES_FILE="$(readlink -f ${ROOTDIR}/tests/credentials.json)"
 
 #update whisk.properties to add tests/credentials.json file to vcap.services.file, which is needed in tests
 WHISKPROPS_FILE="$WHISKDIR/whisk.properties"
