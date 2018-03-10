@@ -16,11 +16,11 @@ tools/build/scanCode.py "$SCRIPTDIR/../.."
 
 ./gradlew distDocker
 
-# docker pull openwhisk/controller
-# docker tag openwhisk/controller ${IMAGE_PREFIX}/controller
-#
-# docker pull openwhisk/invoker
-# docker tag openwhisk/invoker ${IMAGE_PREFIX}/invoker
+docker pull openwhisk/controller
+docker tag openwhisk/controller ${IMAGE_PREFIX}/controller
+
+docker pull openwhisk/invoker
+docker tag openwhisk/invoker ${IMAGE_PREFIX}/invoker
 
 docker pull ibmfunctions/action-nodejs-v8
 docker tag ibmfunctions/action-nodejs-v8 whisk/action-nodejs-v8:latest
