@@ -5,6 +5,7 @@ SCRIPTDIR=$(cd $(dirname "$0") && pwd)
 ROOTDIR="$SCRIPTDIR/../../.."
 WHISKDIR="$ROOTDIR/openwhisk"
 PACKAGESDIR="$WHISKDIR/catalog/extra-packages"
+IMAGE_PREFIX="testing"
 
 cd $WHISKDIR
 
@@ -13,7 +14,7 @@ tools/build/scanCode.py "$SCRIPTDIR/../.."
 cd $WHISKDIR/ansible
 
 #ANSIBLE_CMD="ansible-playbook -i environments/local"
-ANSIBLE_CMD="ansible-playbook -i ${ROOTDIR}/template-hello-world/ansible/environments/local"
+ANSIBLE_CMD="ansible-playbook -i ${ROOTDIR}/template-hello-world/ansible/environments/local -e ${IMAGE_PREFIX}"
 
 $ANSIBLE_CMD setup.yml
 $ANSIBLE_CMD prereq.yml
@@ -22,13 +23,19 @@ $ANSIBLE_CMD initdb.yml
 
 cd $WHISKDIR
 
-./gradlew distDocker
+./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
+
+
+docker pull openwhisk/controller
+docker tag openwhisk/controller ${IMAGE_PREFIX}/controller
+docker pull openwhisk/invoker
+docker tag openwhisk/invoker ${IMAGE_PREFIX}/invoker
 
 docker pull ibmfunctions/action-nodejs-v8
 docker tag ibmfunctions/action-nodejs-v8 whisk/action-nodejs-v8:latest
 
 docker pull ibmfunctions/action-python-v3
-docker tag ibmfunctions/action-python-v3 ibmfunctions/action-python-v3:latest
+docker tag ibmfunctions/action-python-v3 ${IMAGE_PREFIX}/action-python-v3:latest
 
 cd $WHISKDIR/ansible
 
