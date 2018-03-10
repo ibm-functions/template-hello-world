@@ -7,10 +7,15 @@ WHISKDIR="$ROOTDIR/openwhisk"
 PACKAGESDIR="$WHISKDIR/catalog/extra-packages"
 IMAGE_PREFIX="testing"
 
+ls $WHISKDIR
+ls $WHISKDIR
+
 # Set Environment
 export OPENWHISK_HOME=$WHISKDIR
 
 cd $WHISKDIR
+
+ls $WHISKDIR
 
 tools/build/scanCode.py "$SCRIPTDIR/../.."
 
