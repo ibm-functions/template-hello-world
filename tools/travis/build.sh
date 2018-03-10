@@ -7,6 +7,9 @@ WHISKDIR="$ROOTDIR/openwhisk"
 PACKAGESDIR="$WHISKDIR/catalog/extra-packages"
 IMAGE_PREFIX="testing"
 
+# Set Environment
+export OPENWHISK_HOME=$WHISKDIR
+
 cd $WHISKDIR
 
 tools/build/scanCode.py "$SCRIPTDIR/../.."
@@ -52,8 +55,6 @@ WSK_CLI=$WHISKDIR/bin/wsk
 AUTH_KEY=$(cat $WHISKDIR/ansible/files/auth.whisk.system)
 EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
 
-# Set Environment
-export OPENWHISK_HOME=$WHISKDIR
 
 # Place this template in correct location to be included in packageDeploy
 mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
