@@ -25,9 +25,6 @@ cd $WHISKDIR
 
 ./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
 
-docker login -u "${DOCKER_USER}" -p "${DOCKER_PASSWORD}"
-
-
 docker pull openwhisk/controller
 docker tag openwhisk/controller ${IMAGE_PREFIX}/controller
 docker pull openwhisk/invoker
