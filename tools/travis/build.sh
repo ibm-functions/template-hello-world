@@ -46,6 +46,8 @@ cd $WHISKDIR
 
 VCAP_SERVICES_FILE="$(readlink -f $WHISKDIR/../tests/credentials.json)"
 
+ls $WHISKDIR
+
 #update whisk.properties to add tests/credentials.json file to vcap.services.file, which is needed in tests
 WHISKPROPS_FILE="$WHISKDIR/whisk.properties"
 sed -i 's:^[ \t]*vcap.services.file[ \t]*=\([ \t]*.*\)$:vcap.services.file='$VCAP_SERVICES_FILE':'  $WHISKPROPS_FILE
