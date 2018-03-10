@@ -19,8 +19,6 @@ ls $WHISKDIR
 
 tools/build/scanCode.py "$SCRIPTDIR/../.."
 
-cd $WHISKDIR
-
 ./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
 
 docker pull openwhisk/controller
