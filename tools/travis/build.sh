@@ -31,7 +31,7 @@ docker tag ibmfunctions/action-python-v3 ${IMAGE_PREFIX}/action-python-v3:latest
 cd $WHISKDIR/ansible
 
 #ANSIBLE_CMD="ansible-playbook -i environments/local"
-ANSIBLE_CMD="ansible-playbook -i ${ROOTDIR}/ansible/environments/local -e ${IMAGE_PREFIX}"
+ANSIBLE_CMD="ansible-playbook -i ${ROOTDIR}/ansible/environments/local -e docker_image_prefix=${IMAGE_PREFIX}"
 
 $ANSIBLE_CMD setup.yml
 $ANSIBLE_CMD prereq.yml
