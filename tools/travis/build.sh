@@ -42,7 +42,7 @@ $ANSIBLE_CMD wipe.yml
 $ANSIBLE_CMD openwhisk.yml
 
 cd $WHISKDIR
-VCAP_SERVICES_FILE="$(readlink -f $WHISKDIR/../tests/credentials.json)"
+VCAP_SERVICES_FILE="$(readlink -f ${WHISKDIR}/../tests/credentials.json)"
 
 ls $WHISKDIR
 
@@ -54,7 +54,13 @@ cat whisk.properties
 WSK_CLI=$WHISKDIR/bin/wsk
 AUTH_KEY=$(cat $WHISKDIR/ansible/files/auth.whisk.system)
 EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
+#Deployment
+# WHISK_APIHOST="172.17.0.1"
+# WHISK_AUTH=`cat ${WHISKDIR}/ansible/files/auth.guest`
+# WHISK_CLI="${WHISKDIR}/bin/wsk -i"
 
+# ${WHISK_CLI} property set --apihost ${WHISK_APIHOST} --auth ${WHISK_AUTH}
+# ${WHISK_CLI} property get
 
 # Place this template in correct location to be included in packageDeploy
 mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
