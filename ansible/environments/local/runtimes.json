@@ -48,14 +48,6 @@
                 },
                 "deprecated": false
             }
-            {
-                "kind": "python-jessie:3",
-                "image": {
-                    "name": "python3action",
-                    "prefix": "ibmfunctions"
-                },
-                "deprecated": false
-            }
         ],
         "swift": [
             {
