@@ -20,7 +20,9 @@
                 "kind": "nodejs:8",
                 "default": false,
                 "image": {
-                    "name": "action-nodejs-v8"
+                    "name": "action-nodejs-v8",
+                    "prefix": "ibmfunctions",
+                    "tag":"latest"
                 },
                 "deprecated": false
             }
@@ -45,6 +47,16 @@
                 "kind": "python:3",
                 "image": {
                     "name": "python3action"
+                },
+                "deprecated": false
+            },
+            {
+                "kind": "python-jessie:3",
+                "default": false,
+                "image": {
+                    "name": "action-python-v3",
+                    "prefix": "ibmfunctions",
+                    "tag":"latest"
                 },
                 "deprecated": false
             }
