@@ -81,5 +81,5 @@ runtimes_manifest:
       image:
         name: "action-php-v7.1"
       deprecated: false
-    blackboxes:
-    - name: "dockerskeleton"
+  blackboxes:
+  - name: "dockerskeleton"
