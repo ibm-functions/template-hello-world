@@ -2,27 +2,23 @@
 # Build script for Travis-CI.
 
 SCRIPTDIR=$(cd $(dirname "$0") && pwd)
-ROOTDIR="$SCRIPTDIR/../../.."
-WHISKDIR="$ROOTDIR/openwhisk"
+ROOTDIR="$SCRIPTDIR/../.."
+WHISKDIR="$ROOTDIR/../openwhisk"
 PACKAGESDIR="$WHISKDIR/catalog/extra-packages"
 IMAGE_PREFIX="testing"
-
-ls $WHISKDIR
-ls $WHISKDIR
 
 # Set Environment
 export OPENWHISK_HOME=$WHISKDIR
 
 cd $WHISKDIR
 
-ls $WHISKDIR
-
 tools/build/scanCode.py "$SCRIPTDIR/../.."
 
-./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
+./gradlew distDocker
 
 docker pull openwhisk/controller
 docker tag openwhisk/controller ${IMAGE_PREFIX}/controller
+
 docker pull openwhisk/invoker
 docker tag openwhisk/invoker ${IMAGE_PREFIX}/invoker
 
@@ -35,7 +31,7 @@ docker tag ibmfunctions/action-python-v3 ${IMAGE_PREFIX}/action-python-v3:latest
 cd $WHISKDIR/ansible
 
 #ANSIBLE_CMD="ansible-playbook -i environments/local"
-ANSIBLE_CMD="ansible-playbook -i ${ROOTDIR}/template-hello-world/ansible/environments/local -e ${IMAGE_PREFIX}"
+ANSIBLE_CMD="ansible-playbook -i ${ROOTDIR}/ansible/environments/local -e ${IMAGE_PREFIX}"
 
 $ANSIBLE_CMD setup.yml
 $ANSIBLE_CMD prereq.yml
@@ -46,7 +42,6 @@ $ANSIBLE_CMD wipe.yml
 $ANSIBLE_CMD openwhisk.yml
 
 cd $WHISKDIR
-
 VCAP_SERVICES_FILE="$(readlink -f $WHISKDIR/../tests/credentials.json)"
 
 ls $WHISKDIR
@@ -63,12 +58,12 @@ EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
 
 # Place this template in correct location to be included in packageDeploy
 mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
-cp -r $ROOTDIR/template-hello-world $PACKAGESDIR/preInstalled/ibm-functions/
+cp -r $ROOTDIR $PACKAGESDIR/preInstalled/ibm-functions/
 
 # Install the package
 cd $PACKAGESDIR/packageDeploy/packages
 source $PACKAGESDIR/packageDeploy/packages/installCatalog.sh $AUTH_KEY $EDGE_HOST $WSK_CLI
 
 # Test
-cd $ROOTDIR/template-hello-world
+cd $ROOTDIR
 ./gradlew :tests:test
