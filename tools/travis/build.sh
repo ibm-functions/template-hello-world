@@ -4,7 +4,7 @@
 SCRIPTDIR=$(cd $(dirname "$0") && pwd)
 ROOTDIR="$SCRIPTDIR/../../.."
 WHISKDIR="$ROOTDIR/openwhisk"
-DEPLOYDIR="$ROOTDIR/packageDeploy"
+PACKAGESDIR="$WHISKDIR/catalog/extra-packages"
 
 cd $WHISKDIR
 
@@ -33,7 +33,6 @@ cd $WHISKDIR/ansible
 
 $ANSIBLE_CMD wipe.yml
 $ANSIBLE_CMD openwhisk.yml
-$ANSIBLE_CMD postdeploy.yml
 
 cd $WHISKDIR
 
@@ -55,7 +54,7 @@ export OPENWHISK_HOME=$WHISKDIR
 mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
 cp -r $ROOTDIR/template-hello-world $PACKAGESDIR/preInstalled/ibm-functions/
 
-# Install the deploy package
+# Install the package
 cd $PACKAGESDIR/packageDeploy/packages
 source $PACKAGESDIR/packageDeploy/packages/installCatalog.sh $AUTH_KEY $EDGE_HOST $WSK_CLI
 
