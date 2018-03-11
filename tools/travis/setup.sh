@@ -19,6 +19,8 @@ git clone --depth 1 https://github.com/apache/incubator-openwhisk.git openwhisk
 git clone --depth 1 https://github.com/apache/incubator-openwhisk-package-deploy $DEPLOYDIR
 
 cd openwhisk
+
+# use runtimes.json that defines python-jessie & IBM Node.js 8
 rm -f ansible/files/runtimes.json
 cp $HOMEDIR/template-hello-world/ansible/files/runtimes.json ansible/files/runtimes.json
 
