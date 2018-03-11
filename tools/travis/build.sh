@@ -14,24 +14,8 @@ cd $WHISKDIR
 
 tools/build/scanCode.py "$SCRIPTDIR/../.."
 
-
+# Build Openwhisk
 ./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
-
-# Build IBM nodejs runtime
-cd $ROOTDIR
-# TERM=dumb ./gradlew \
-# :nodejs8:distDocker \
-# -PdockerImagePrefix=${IMAGE_PREFIX}
-
-# Build OpenWhisk
-cd $WHISKDIR
-# docker pull openwhisk/controller
-# docker tag openwhisk/controller ${IMAGE_PREFIX}/controller
-# docker pull openwhisk/invoker
-# docker tag openwhisk/invoker ${IMAGE_PREFIX}/invoker
-
-# docker pull openwhisk/nodejs6action
-# docker tag openwhisk/nodejs6action ${IMAGE_PREFIX}/nodejs6action
 
 docker pull ibmfunctions/action-nodejs-v8
 docker tag ibmfunctions/action-nodejs-v8 ${IMAGE_PREFIX}/action-nodejs-v8
@@ -39,30 +23,16 @@ docker tag ibmfunctions/action-nodejs-v8 ${IMAGE_PREFIX}/action-nodejs-v8
 docker pull ibmfunctions/action-python-v3
 docker tag ibmfunctions/action-python-v3 ${IMAGE_PREFIX}/action-python-v3
 
-# docker pull openwhisk/swift3action
-# docker tag openwhisk/swift3action ${IMAGE_PREFIX}/swift3action
-#
-# docker pull openwhisk/action-php-v7.1
-# docker tag openwhisk/action-php-v7.1 ${IMAGE_PREFIX}/action-php-v7.1
-
 
 cd $WHISKDIR/ansible
 
+# Deploy Openwhisk
 ANSIBLE_CMD="ansible-playbook -i environments/local -e docker_image_prefix=${IMAGE_PREFIX}"
 
 $ANSIBLE_CMD setup.yml
 $ANSIBLE_CMD prereq.yml
 $ANSIBLE_CMD couchdb.yml
 $ANSIBLE_CMD initdb.yml
-
-docker pull ibmfunctions/action-nodejs-v8
-docker tag ibmfunctions/action-nodejs-v8 whisk/action-nodejs-v8:latest
-
-docker pull ibmfunctions/action-python-v3
-docker tag ibmfunctions/action-python-v3 ibmfunctions/action-python-v3:latest
-
-cd $WHISKDIR/ansible
-
 $ANSIBLE_CMD wipe.yml
 $ANSIBLE_CMD openwhisk.yml
 
@@ -78,7 +48,6 @@ cat whisk.properties
 WSK_CLI=$WHISKDIR/bin/wsk
 AUTH_KEY=$(cat $WHISKDIR/ansible/files/auth.whisk.system)
 EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
-
 
 # Place this template in correct location to be included in packageDeploy
 mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
