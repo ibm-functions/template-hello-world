@@ -194,10 +194,9 @@ class HelloTests extends TestHelpers
      */
      it should "invoke nodejs 8 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
        val name = "helloNode"
-       val kind = Option("nodejs:8")
        val file = Some(new File(nodejs8folder, "helloworld.js").toString());
        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-         action.create(name, file, kind)
+         action.create(name, file, kind = Some(nodejs8kind))
        }
 
        withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -206,10 +205,9 @@ class HelloTests extends TestHelpers
      }
       it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
         val name = "helloNode"
-        val kind = Option("nodejs:8")
         val file = Some(new File(nodejs8folder, "helloworld.js").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file, kind)
+          action.create(name, file, kind = Some(nodejs8kind))
         }
 
         withActivation(wsk.activation, wsk.action.invoke(name)) {
@@ -224,7 +222,7 @@ class HelloTests extends TestHelpers
         val name = "helloNode"
         val file = Some(new File(nodejs6folder, "helloworld.js").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file)
+          action.create(name, file, kind = Some(nodejs6kind))
         }
 
         withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -235,7 +233,7 @@ class HelloTests extends TestHelpers
          val name = "helloNode"
          val file = Some(new File(nodejs6folder, "helloworld.js").toString());
          assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-           action.create(name, file)
+           action.create(name, file, kind = Some(nodejs6kind))
          }
 
          withActivation(wsk.activation, wsk.action.invoke(name)) {
@@ -249,7 +247,7 @@ class HelloTests extends TestHelpers
         val name = "helloPhp"
         val file = Some(new File(phpfolder, "helloworld.php").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file)
+          action.create(name, file, kind = Some(phpkind))
         }
 
         withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -260,7 +258,7 @@ class HelloTests extends TestHelpers
         val name = "helloPhp"
         val file = Some(new File(phpfolder, "helloworld.php").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file)
+          action.create(name, file, kind = Some(phpkind))
         }
 
         withActivation(wsk.activation, wsk.action.invoke(name)) {
@@ -274,7 +272,7 @@ class HelloTests extends TestHelpers
          val name = "helloPython"
          val file = Some(new File(pythonfolder, "helloworld.py").toString());
          assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-           action.create(name, file)
+           action.create(name, file, kind = Some(pythonkind))
          }
 
          withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -285,7 +283,7 @@ class HelloTests extends TestHelpers
          val name = "helloPython"
          val file = Some(new File(pythonfolder, "helloworld.py").toString());
          assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-           action.create(name, file)
+           action.create(name, file, kind = Some(pythonkind))
          }
 
          withActivation(wsk.activation, wsk.action.invoke(name)) {
@@ -299,7 +297,7 @@ class HelloTests extends TestHelpers
           val name = "helloSwift"
           val file = Some(new File(swiftfolder, "helloworld.swift").toString());
           assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-            action.create(name, file)
+            action.create(name, file, kind = Some(swiftkind))
           }
 
           withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -310,7 +308,7 @@ class HelloTests extends TestHelpers
           val name = "helloSwift"
           val file = Some(new File(swiftfolder, "helloworld.swift").toString());
           assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-            action.create(name, file)
+            action.create(name, file, kind = Some(swiftkind))
           }
 
           withActivation(wsk.activation, wsk.action.invoke(name)) {
