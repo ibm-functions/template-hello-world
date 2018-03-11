@@ -49,19 +49,19 @@ class HelloTests extends TestHelpers
     //set parameters for deploy tests
     val node8RuntimePath = "runtimes/nodejs"
     val nodejs8folder = "../runtimes/nodejs/actions";
-    val nodejs8kind = JsString("nodejs:8")
+    val nodejs8kind = "nodejs:8"
     val node6RuntimePath = "runtimes/nodejs-6"
     val nodejs6folder = "../runtimes/nodejs-6/actions";
-    val nodejs6kind = JsString("nodejs:6")
+    val nodejs6kind = "nodejs:6"
     val phpRuntimePath = "runtimes/php"
     val phpfolder = "../runtimes/php/actions";
-    val phpkind = JsString("php:7.1")
+    val phpkind = "php:7.1"
     val pythonRuntimePath = "runtimes/python"
     val pythonfolder = "../runtimes/python/actions";
-    val pythonkind = JsString("python-jessie:3")
+    val pythonkind = "python-jessie:3"
     val swiftRuntimePath = "runtimes/swift"
     val swiftfolder = "../runtimes/swift/actions";
-    val swiftkind = JsString("swift:3.1.1")
+    val swiftkind = "swift:3.1.1"
 
     // statuses from deployWeb
     val successStatus = """"status":"success""""
@@ -100,7 +100,7 @@ class HelloTests extends TestHelpers
       }
 
       val action = wsk.action.get("myPackage/helloworld")
-      verifyAction(action, helloWorldActionPackage, nodejs8kind)
+      verifyAction(action, helloWorldActionPackage, JsString(nodejs8kind))
 
       // clean up after test
       wsk.action.delete(helloWorldActionPackage)
@@ -121,7 +121,7 @@ class HelloTests extends TestHelpers
       }
 
       val action = wsk.action.get("myPackage/helloworld")
-      verifyAction(action, helloWorldActionPackage, nodejs6kind)
+      verifyAction(action, helloWorldActionPackage, JsString(nodejs6kind))
 
       // clean up after test
       wsk.action.delete(helloWorldActionPackage)
@@ -142,7 +142,7 @@ class HelloTests extends TestHelpers
       }
 
       val action = wsk.action.get("myPackage/helloworld")
-      verifyAction(action, helloWorldActionPackage, phpkind)
+      verifyAction(action, helloWorldActionPackage, JsString(phpkind))
 
       // clean up after test
       wsk.action.delete(helloWorldActionPackage)
@@ -163,7 +163,7 @@ class HelloTests extends TestHelpers
       }
 
       val action = wsk.action.get("myPackage/helloworld")
-      verifyAction(action, helloWorldActionPackage, pythonkind)
+      verifyAction(action, helloWorldActionPackage, JsString(pythonkind))
 
       // clean up after test
       wsk.action.delete(helloWorldActionPackage)
@@ -184,7 +184,7 @@ class HelloTests extends TestHelpers
       }
 
       val action = wsk.action.get("myPackage/helloworld")
-      verifyAction(action, helloWorldActionPackage, swiftkind)
+      verifyAction(action, helloWorldActionPackage, JsString(swiftkind))
 
       // clean up after test
       wsk.action.delete(helloWorldActionPackage)
@@ -196,7 +196,7 @@ class HelloTests extends TestHelpers
        val name = "helloNode"
        val file = Some(new File(nodejs8folder, "helloworld.js").toString());
        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-         action.create(name, file, kind = Some("nodejs:8"))
+         action.create(name, file, kind = Some(nodejs8kind))
        }
 
        withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -207,7 +207,7 @@ class HelloTests extends TestHelpers
         val name = "helloNode"
         val file = Some(new File(nodejs8folder, "helloworld.js").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file, kind = Some("nodejs:8"))
+          action.create(name, file, kind = Some(nodejs8kind))
         }
 
         withActivation(wsk.activation, wsk.action.invoke(name)) {
@@ -222,7 +222,7 @@ class HelloTests extends TestHelpers
         val name = "helloNode"
         val file = Some(new File(nodejs6folder, "helloworld.js").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file, kind = Some("nodejs:6"))
+          action.create(name, file, kind = Some(nodejs6kind))
         }
 
         withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -233,7 +233,7 @@ class HelloTests extends TestHelpers
          val name = "helloNode"
          val file = Some(new File(nodejs6folder, "helloworld.js").toString());
          assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-           action.create(name, file, kind = Some("nodejs:6"))
+           action.create(name, file, kind = Some(nodejs6kind))
          }
 
          withActivation(wsk.activation, wsk.action.invoke(name)) {
@@ -247,7 +247,7 @@ class HelloTests extends TestHelpers
         val name = "helloPhp"
         val file = Some(new File(phpfolder, "helloworld.php").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file, kind = Some("php:7.1"))
+          action.create(name, file, kind = Some(phpkind))
         }
 
         withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -258,7 +258,7 @@ class HelloTests extends TestHelpers
         val name = "helloPhp"
         val file = Some(new File(phpfolder, "helloworld.php").toString());
         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file, kind = Some("php:7.1"))
+          action.create(name, file, kind = Some(phpkind))
         }
 
         withActivation(wsk.activation, wsk.action.invoke(name)) {
@@ -272,7 +272,7 @@ class HelloTests extends TestHelpers
          val name = "helloPython"
          val file = Some(new File(pythonfolder, "helloworld.py").toString());
          assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-           action.create(name, file, kind = Some("python-jessie:3"))
+           action.create(name, file, kind = Some(pythonkind))
          }
 
          withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -283,7 +283,7 @@ class HelloTests extends TestHelpers
          val name = "helloPython"
          val file = Some(new File(pythonfolder, "helloworld.py").toString());
          assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-           action.create(name, file, kind = Some("python-jessie:3"))
+           action.create(name, file, kind = Some(pythonkind))
          }
 
          withActivation(wsk.activation, wsk.action.invoke(name)) {
@@ -297,7 +297,7 @@ class HelloTests extends TestHelpers
           val name = "helloSwift"
           val file = Some(new File(swiftfolder, "helloworld.swift").toString());
           assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-            action.create(name, file, kind = Some("swift:3.1.1"))
+            action.create(name, file, kind = Some(swiftkind))
           }
 
           withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -308,7 +308,7 @@ class HelloTests extends TestHelpers
           val name = "helloSwift"
           val file = Some(new File(swiftfolder, "helloworld.swift").toString());
           assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-            action.create(name, file, kind = Some("swift:3.1.1"))
+            action.create(name, file, kind = Some(swiftkind))
           }
 
           withActivation(wsk.activation, wsk.action.invoke(name)) {
