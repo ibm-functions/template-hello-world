@@ -20,6 +20,6 @@ git clone --depth 1 https://github.com/apache/incubator-openwhisk-package-deploy
 
 cd openwhisk
 rm -f ansible/files/runtimes.json
-cp $HOMEDIR/template-hello-world/ansible/environments/local/runtimes.json ansible/files/runtimes.json
+cp $HOMEDIR/template-hello-world/ansible/files/runtimes.json ansible/files/runtimes.json
 
 ./tools/travis/setup.sh

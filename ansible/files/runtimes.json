@@ -20,9 +20,9 @@
                 "kind": "nodejs:8",
                 "default": false,
                 "image": {
-                    "name": "action-nodejs-v8",
-                    "prefix": "ibmfunctions",
-                    "tag":"latest"
+                  "name": "action-nodejs-v8",
+                  "prefix": "ibmfunctions",
+                  "tag":"latest"
                 },
                 "deprecated": false
             }
