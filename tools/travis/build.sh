@@ -23,7 +23,6 @@ docker tag ibmfunctions/action-nodejs-v8 ${IMAGE_PREFIX}/action-nodejs-v8
 docker pull ibmfunctions/action-python-v3
 docker tag ibmfunctions/action-python-v3 ${IMAGE_PREFIX}/action-python-v3
 
-
 cd $WHISKDIR/ansible
 
 # Deploy Openwhisk
@@ -53,7 +52,7 @@ EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
 mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
 cp -r $ROOTDIR/template-hello-world $PACKAGESDIR/preInstalled/ibm-functions/
 
-# Install the package
+# Install the deploy package
 cd $PACKAGESDIR/packageDeploy/packages
 source $PACKAGESDIR/packageDeploy/packages/installCatalog.sh $AUTH_KEY $EDGE_HOST $WSK_CLI
 
