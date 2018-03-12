@@ -43,6 +43,7 @@ class HelloTests extends TestHelpers
 
     val deployTestRepo = "https://github.com/ibm-functions/template-hello-world"
     val helloWorldActionPackage = "myPackage/helloworld"
+    val packageName = "myPackage"
     val deployAction = "/whisk.system/deployWeb/wskdeploy"
     val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
 
@@ -90,7 +91,7 @@ class HelloTests extends TestHelpers
       makePostCallWithExpectedResult(JsObject(
         "gitUrl" -> JsString(deployTestRepo),
         "manifestPath" -> JsString(node8RuntimePath),
-        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(packageName)),
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
@@ -99,7 +100,7 @@ class HelloTests extends TestHelpers
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get("myPackage/helloworld")
+      val action = wsk.action.get(helloWorldActionPackage)
       verifyAction(action, helloWorldActionPackage, JsString(nodejs8kind))
 
       // clean up after test
@@ -111,7 +112,7 @@ class HelloTests extends TestHelpers
       makePostCallWithExpectedResult(JsObject(
         "gitUrl" -> JsString(deployTestRepo),
         "manifestPath" -> JsString(node6RuntimePath),
-        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(packageName)),
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
@@ -120,7 +121,7 @@ class HelloTests extends TestHelpers
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get("myPackage/helloworld")
+      val action = wsk.action.get(helloWorldActionPackage)
       verifyAction(action, helloWorldActionPackage, JsString(nodejs6kind))
 
       // clean up after test
@@ -132,7 +133,7 @@ class HelloTests extends TestHelpers
       makePostCallWithExpectedResult(JsObject(
         "gitUrl" -> JsString(deployTestRepo),
         "manifestPath" -> JsString(phpRuntimePath),
-        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(packageName)),
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
@@ -141,7 +142,7 @@ class HelloTests extends TestHelpers
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get("myPackage/helloworld")
+      val action = wsk.action.get(helloWorldActionPackage)
       verifyAction(action, helloWorldActionPackage, JsString(phpkind))
 
       // clean up after test
@@ -153,7 +154,7 @@ class HelloTests extends TestHelpers
       makePostCallWithExpectedResult(JsObject(
         "gitUrl" -> JsString(deployTestRepo),
         "manifestPath" -> JsString(pythonRuntimePath),
-        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(packageName)),
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
@@ -162,7 +163,7 @@ class HelloTests extends TestHelpers
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get("myPackage/helloworld")
+      val action = wsk.action.get(helloWorldActionPackage)
       verifyAction(action, helloWorldActionPackage, JsString(pythonkind))
 
       // clean up after test
@@ -174,7 +175,7 @@ class HelloTests extends TestHelpers
       makePostCallWithExpectedResult(JsObject(
         "gitUrl" -> JsString(deployTestRepo),
         "manifestPath" -> JsString(swiftRuntimePath),
-        "envData" -> JsObject("PACKAGE_NAME" -> JsString("myPackage")),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(packageName)),
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
@@ -183,7 +184,7 @@ class HelloTests extends TestHelpers
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get("myPackage/helloworld")
+      val action = wsk.action.get(helloWorldActionPackage)
       verifyAction(action, helloWorldActionPackage, JsString(swiftkind))
 
       // clean up after test
