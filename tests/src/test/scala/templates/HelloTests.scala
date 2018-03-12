@@ -174,143 +174,146 @@ class HelloTests extends TestHelpers
     /**
      * Test the nodejs 8 "hello world" template
      */
-     it should "invoke nodejs 8 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-       val name = "helloNode"
-       val file = Some(new File(nodejs8folder, "helloworld.js").toString());
-       assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-         action.create(name, file, kind = Some(nodejs8kind))
-       }
-
-       withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
-         _.response.result.get.toString should include("Mindy")
-       }
-     }
-      it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-        val name = "helloNode"
-        val file = Some(new File(nodejs8folder, "helloworld.js").toString());
-        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file, kind = Some(nodejs8kind))
-        }
-
-        withActivation(wsk.activation, wsk.action.invoke(name)) {
-          _.response.result.get.toString should include("stranger")
-        }
+    it should "invoke nodejs 8 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloNode"
+      val file = Some(new File(nodejs8folder, "helloworld.js").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(nodejs8kind))
       }
 
-      /**
-       * Test the nodejs 6 "hello world" template
-       */
-      it should "invoke nodejs 6 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-        val name = "helloNode"
-        val file = Some(new File(nodejs6folder, "helloworld.js").toString());
-        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file, kind = Some(nodejs6kind))
-        }
-
-        withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
-          _.response.result.get.toString should include("Mindy")
-        }
+      withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
+        _.response.result.get.toString should include("Mindy")
       }
-       it should "invoke nodejs 6 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-         val name = "helloNode"
-         val file = Some(new File(nodejs6folder, "helloworld.js").toString());
-         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-           action.create(name, file, kind = Some(nodejs6kind))
-         }
+    }
 
-         withActivation(wsk.activation, wsk.action.invoke(name)) {
-           _.response.result.get.toString should include("stranger")
-         }
-       }
-     /**
-      * Test the php "hello world" template
-      */
-      it should "invoke helloworld.php and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-        val name = "helloPhp"
-        val file = Some(new File(phpfolder, "helloworld.php").toString());
-        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file, kind = Some(phpkind))
-        }
-
-        withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
-          _.response.result.get.toString should include("Mindy")
-        }
+    it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloNode"
+      val file = Some(new File(nodejs8folder, "helloworld.js").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(nodejs8kind))
       }
-      it should "invoke helloworld.php without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-        val name = "helloPhp"
-        val file = Some(new File(phpfolder, "helloworld.php").toString());
-        assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-          action.create(name, file, kind = Some(phpkind))
-        }
 
-        withActivation(wsk.activation, wsk.action.invoke(name)) {
-          _.response.result.get.toString should include("stranger")
-        }
+      withActivation(wsk.activation, wsk.action.invoke(name)) {
+        _.response.result.get.toString should include("stranger")
       }
-      /**
-       * Test the python "hello world" template
-       */
-       it should "invoke helloworld.py and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-         val name = "helloPython"
-         val file = Some(new File(pythonfolder, "helloworld.py").toString());
-         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-           action.create(name, file, kind = Some(pythonkind))
-         }
+    }
+    /**
+    * Test the nodejs 6 "hello world" template
+    */
+    it should "invoke nodejs 6 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloNode"
+      val file = Some(new File(nodejs6folder, "helloworld.js").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(nodejs6kind))
+      }
 
-         withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
-           _.response.result.get.toString should include("Mindy")
-         }
-       }
-       it should "invoke helloworld.py without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-         val name = "helloPython"
-         val file = Some(new File(pythonfolder, "helloworld.py").toString());
-         assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-           action.create(name, file, kind = Some(pythonkind))
-         }
+      withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
+        _.response.result.get.toString should include("Mindy")
+      }
+    }
+    it should "invoke nodejs 6 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloNode"
+      val file = Some(new File(nodejs6folder, "helloworld.js").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(nodejs6kind))
+      }
 
-         withActivation(wsk.activation, wsk.action.invoke(name)) {
-           _.response.result.get.toString should include("stranger")
-         }
-       }
-       /**
-        * Test the swift "hello world" template
-        */
-        it should "invoke helloworld.swift and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-          val name = "helloSwift"
-          val file = Some(new File(swiftfolder, "helloworld.swift").toString());
-          assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-            action.create(name, file, kind = Some(swiftkind))
-          }
+      withActivation(wsk.activation, wsk.action.invoke(name)) {
+        _.response.result.get.toString should include("stranger")
+      }
+    }
+    /**
+    * Test the php "hello world" template
+    */
+    it should "invoke helloworld.php and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloPhp"
+      val file = Some(new File(phpfolder, "helloworld.php").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(phpkind))
+      }
 
-          withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
-            _.response.result.get.toString should include("Mindy")
-          }
-        }
-        it should "invoke helloworld.swift without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-          val name = "helloSwift"
-          val file = Some(new File(swiftfolder, "helloworld.swift").toString());
-          assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-            action.create(name, file, kind = Some(swiftkind))
-          }
+      withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
+        _.response.result.get.toString should include("Mindy")
+      }
+    }
+    it should "invoke helloworld.php without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloPhp"
+      val file = Some(new File(phpfolder, "helloworld.php").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(phpkind))
+      }
 
-          withActivation(wsk.activation, wsk.action.invoke(name)) {
-            _.response.result.get.toString should include("stranger")
-          }
-        }
-      private def makePostCallWithExpectedResult(params: JsObject, expectedResult: String, expectedCode: Int) = {
-        val response = RestAssured.given()
-            .contentType("application/json\r\n")
-            .config(RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation()))
-            .body(params.toString())
-            .post(deployActionURL)
+      withActivation(wsk.activation, wsk.action.invoke(name)) {
+        _.response.result.get.toString should include("stranger")
+      }
+    }
+    /**
+     * Test the python "hello world" template
+     */
+    it should "invoke helloworld.py and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloPython"
+      val file = Some(new File(pythonfolder, "helloworld.py").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(pythonkind))
+      }
+      withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
+        _.response.result.get.toString should include("Mindy")
+      }
+    }
+
+    it should "invoke helloworld.py without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloPython"
+      val file = Some(new File(pythonfolder, "helloworld.py").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(pythonkind))
+      }
+
+      withActivation(wsk.activation, wsk.action.invoke(name)) {
+        _.response.result.get.toString should include("stranger")
+      }
+    }
+
+    /**
+    * Test the swift "hello world" template
+    */
+    it should "invoke helloworld.swift and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloSwift"
+      val file = Some(new File(swiftfolder, "helloworld.swift").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(swiftkind))
+      }
+
+      withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
+        _.response.result.get.toString should include("Mindy")
+      }
+    }
+
+    it should "invoke helloworld.swift without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+      val name = "helloSwift"
+      val file = Some(new File(swiftfolder, "helloworld.swift").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(swiftkind))
+      }
+
+      withActivation(wsk.activation, wsk.action.invoke(name)) {
+        _.response.result.get.toString should include("stranger")
+      }
+    }
+
+    private def makePostCallWithExpectedResult(params: JsObject, expectedResult: String, expectedCode: Int) = {
+      val response = RestAssured.given()
+        .contentType("application/json\r\n")
+        .config(RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation()))
+        .body(params.toString())
+        .post(deployActionURL)
         assert(response.statusCode() == expectedCode)
         response.body.asString should include(expectedResult)
         response.body.asString.parseJson.asJsObject.getFields("activationId") should have length 1
       }
 
-      private def verifyAction(action: RunResult, name: String, kindValue: JsString): Unit = {
-        val stdout = action.stdout
-        assert(stdout.startsWith(s"ok: got action $name\n"))
-        wsk.parseJsonString(stdout).fields("exec").asJsObject.fields("kind") shouldBe kindValue
-      }
+    private def verifyAction(action: RunResult, name: String, kindValue: JsString): Unit = {
+      val stdout = action.stdout
+      assert(stdout.startsWith(s"ok: got action $name\n"))
+      wsk.parseJsonString(stdout).fields("exec").asJsObject.fields("kind") shouldBe kindValue
+    }
 }
