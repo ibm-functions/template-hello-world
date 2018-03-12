@@ -28,8 +28,6 @@ import com.jayway.restassured.RestAssured
 import com.jayway.restassured.config.SSLConfig
 import spray.json.DefaultJsonProtocol.StringJsonFormat
 import spray.json._
-
-
 import spray.json.DefaultJsonProtocol._
 
 
@@ -42,7 +40,7 @@ class HelloTests extends TestHelpers
     val wsk = new Wsk()
 
     val deployTestRepo = "https://github.com/ibm-functions/template-hello-world"
-    val helloWorldActionPackage = "myPackage/helloworld"
+    val helloWorldAction = "myPackage/helloworld"
     val packageName = "myPackage"
     val deployAction = "/whisk.system/deployWeb/wskdeploy"
     val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
@@ -64,25 +62,8 @@ class HelloTests extends TestHelpers
     val swiftfolder = "../runtimes/swift/actions";
     val swiftkind = "swift:3.1.1"
 
-    // statuses from deployWeb
+    // status from deployWeb
     val successStatus = """"status":"success""""
-
-    def makePostCallWithExpectedResult(params: JsObject, expectedResult: String, expectedCode: Int) = {
-      val response = RestAssured.given()
-          .contentType("application/json\r\n")
-          .config(RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation()))
-          .body(params.toString())
-          .post(deployActionURL)
-      assert(response.statusCode() == expectedCode)
-      response.body.asString should include(expectedResult)
-      response.body.asString.parseJson.asJsObject.getFields("activationId") should have length 1
-    }
-
-    def verifyAction(action: RunResult, name: String, kindValue: JsString): Unit = {
-      val stdout = action.stdout
-      assert(stdout.startsWith(s"ok: got action $name\n"))
-      wsk.parseJsonString(stdout).fields("exec").asJsObject.fields("kind") shouldBe kindValue
-    }
 
     behavior of "Hello World Template"
 
@@ -96,15 +77,15 @@ class HelloTests extends TestHelpers
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
 
-      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldAction)) {
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get(helloWorldActionPackage)
-      verifyAction(action, helloWorldActionPackage, JsString(nodejs8kind))
+      val action = wsk.action.get(helloWorldAction)
+      verifyAction(action, helloWorldAction, JsString(nodejs8kind))
 
       // clean up after test
-      wsk.action.delete(helloWorldActionPackage)
+      wsk.action.delete(helloWorldAction)
     }
 
     // test to create the hello world template from github url.  Will use preinstalled folder.
@@ -117,15 +98,15 @@ class HelloTests extends TestHelpers
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
 
-      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldAction)) {
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get(helloWorldActionPackage)
-      verifyAction(action, helloWorldActionPackage, JsString(nodejs6kind))
+      val action = wsk.action.get(helloWorldAction)
+      verifyAction(action, helloWorldAction, JsString(nodejs6kind))
 
       // clean up after test
-      wsk.action.delete(helloWorldActionPackage)
+      wsk.action.delete(helloWorldAction)
     }
 
     // test to create the hello world template from github url.  Will use preinstalled folder.
@@ -138,15 +119,15 @@ class HelloTests extends TestHelpers
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
 
-      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldAction)) {
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get(helloWorldActionPackage)
-      verifyAction(action, helloWorldActionPackage, JsString(phpkind))
+      val action = wsk.action.get(helloWorldAction)
+      verifyAction(action, helloWorldAction, JsString(phpkind))
 
       // clean up after test
-      wsk.action.delete(helloWorldActionPackage)
+      wsk.action.delete(helloWorldAction)
     }
 
     // test to create the hello world template from github url.  Will use preinstalled folder.
@@ -159,15 +140,15 @@ class HelloTests extends TestHelpers
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
 
-      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldAction)) {
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get(helloWorldActionPackage)
-      verifyAction(action, helloWorldActionPackage, JsString(pythonkind))
+      val action = wsk.action.get(helloWorldAction)
+      verifyAction(action, helloWorldAction, JsString(pythonkind))
 
       // clean up after test
-      wsk.action.delete(helloWorldActionPackage)
+      wsk.action.delete(helloWorldAction)
     }
 
     // test to create the hello world template from github url.  Will use preinstalled folder.
@@ -180,15 +161,15 @@ class HelloTests extends TestHelpers
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200);
 
-      withActivation(wsk.activation, wsk.action.invoke(helloWorldActionPackage)) {
+      withActivation(wsk.activation, wsk.action.invoke(helloWorldAction)) {
         _.response.result.get.toString should include("stranger")
       }
 
-      val action = wsk.action.get(helloWorldActionPackage)
-      verifyAction(action, helloWorldActionPackage, JsString(swiftkind))
+      val action = wsk.action.get(helloWorldAction)
+      verifyAction(action, helloWorldAction, JsString(swiftkind))
 
       // clean up after test
-      wsk.action.delete(helloWorldActionPackage)
+      wsk.action.delete(helloWorldAction)
     }
     /**
      * Test the nodejs 8 "hello world" template
@@ -316,4 +297,20 @@ class HelloTests extends TestHelpers
             _.response.result.get.toString should include("stranger")
           }
         }
+      private def makePostCallWithExpectedResult(params: JsObject, expectedResult: String, expectedCode: Int) = {
+        val response = RestAssured.given()
+            .contentType("application/json\r\n")
+            .config(RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation()))
+            .body(params.toString())
+            .post(deployActionURL)
+        assert(response.statusCode() == expectedCode)
+        response.body.asString should include(expectedResult)
+        response.body.asString.parseJson.asJsObject.getFields("activationId") should have length 1
+      }
+
+      private def verifyAction(action: RunResult, name: String, kindValue: JsString): Unit = {
+        val stdout = action.stdout
+        assert(stdout.startsWith(s"ok: got action $name\n"))
+        wsk.parseJsonString(stdout).fields("exec").asJsObject.fields("kind") shouldBe kindValue
+      }
 }
