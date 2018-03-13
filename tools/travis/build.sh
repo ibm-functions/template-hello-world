@@ -17,7 +17,7 @@ tools/build/scanCode.py "$SCRIPTDIR/../.."
 # Build Openwhisk
 ./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
 
-docker pull ibmfunctions/action-nodejs-v8
+docker pull ibmfunctions/action-nodejs-v8:1.5.0
 docker tag ibmfunctions/action-nodejs-v8:1.5.0 ${IMAGE_PREFIX}/action-nodejs-v8:1.5.0
 
 docker pull ibmfunctions/action-python-v3:1.3.0
