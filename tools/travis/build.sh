@@ -17,14 +17,14 @@ tools/build/scanCode.py "$SCRIPTDIR/../.."
 # Build Openwhisk
 ./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
 
-docker pull ibmfunctions/action-nodejs-v8:1.5.0
-docker tag ibmfunctions/action-nodejs-v8:1.5.0 ${IMAGE_PREFIX}/action-nodejs-v8
+docker pull ibmfunctions/action-nodejs-v8
+docker tag ibmfunctions/action-nodejs-v8:1.5.0 ${IMAGE_PREFIX}/action-nodejs-v8:1.5.0
 
 docker pull ibmfunctions/action-python-v3:1.3.0
-docker tag ibmfunctions/action-python-v3:1.3.0 ${IMAGE_PREFIX}/action-python-v3
+docker tag ibmfunctions/action-python-v3:1.3.0 ${IMAGE_PREFIX}/action-python-v3:1.3.0
 
 docker pull ibmfunctions/action-swift-v4.1:1.0.1
-docker tag ibmfunctions/action-swift-v4.1:1.0.1 ${IMAGE_PREFIX}/action-swift-v4.1
+docker tag ibmfunctions/action-swift-v4.1:1.0.1 ${IMAGE_PREFIX}/action-swift-v4.1:1.0.1
 
 cd $WHISKDIR/ansible
 
