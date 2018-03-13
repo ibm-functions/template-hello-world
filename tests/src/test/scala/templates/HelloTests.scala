@@ -71,7 +71,8 @@ class HelloTests extends TestHelpers
   // test to create the hello world template from github url.  Will use preinstalled folder.
   it should "create the nodejs 8 hello world action from github url" in {
     // create unique asset names
-    val nodejs8Package = packageName + "nodejs8"
+    val timestamp: String = System.currentTimeMillis.toString
+    val nodejs8Package = packageName + timestamp
     val nodejs8HelloWorldAction = nodejs8Package + "/" + helloWorldAction
 
     makePostCallWithExpectedResult(JsObject(
@@ -96,7 +97,8 @@ class HelloTests extends TestHelpers
   // test to create the hello world template from github url.  Will use preinstalled folder.
   it should "create the nodejs 6 hello world action from github url" in {
     // create unique asset names
-    val nodejs6Package = packageName + "nodejs8"
+    val timestamp: String = System.currentTimeMillis.toString
+    val nodejs6Package = packageName + timestamp
     val nodejs6HelloWorldAction = nodejs6Package + "/" + helloWorldAction
 
     makePostCallWithExpectedResult(JsObject(
@@ -121,7 +123,8 @@ class HelloTests extends TestHelpers
   // test to create the hello world template from github url.  Will use preinstalled folder.
   it should "create the php hello world action from github url" in {
     // create unique asset names
-    val phpPackage = packageName + "nodejs8"
+    val timestamp: String = System.currentTimeMillis.toString
+    val phpPackage = packageName + timestamp
     val phpHelloWorldAction = phpPackage + "/" + helloWorldAction
 
     makePostCallWithExpectedResult(JsObject(
@@ -146,7 +149,8 @@ class HelloTests extends TestHelpers
   // test to create the hello world template from github url.  Will use preinstalled folder.
   it should "create the python hello world action from github url" in {
     // create unique asset names
-    val pythonPackage = packageName + "nodejs8"
+    val timestamp: String = System.currentTimeMillis.toString
+    val pythonPackage = packageName + timestamp
     val pythonHelloWorldAction = pythonPackage + "/" + helloWorldAction
 
     makePostCallWithExpectedResult(JsObject(
@@ -171,7 +175,8 @@ class HelloTests extends TestHelpers
   // test to create the hello world template from github url.  Will use preinstalled folder.
   it should "create the swift hello world action from github url" in {
     // create unique asset names
-    val swiftPackage = packageName + "nodejs8"
+    val timestamp: String = System.currentTimeMillis.toString
+    val swiftPackage = packageName + timestamp
     val swiftHelloWorldAction = swiftPackage + "/" + helloWorldAction
 
     makePostCallWithExpectedResult(JsObject(
@@ -196,7 +201,8 @@ class HelloTests extends TestHelpers
     * Test the nodejs 8 "hello world" template
     */
   it should "invoke nodejs 8 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloNode"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloNode" + timestamp
     val file = Some(new File(nodejs8folder, "helloworld.js").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(nodejs8kind))
@@ -208,7 +214,8 @@ class HelloTests extends TestHelpers
   }
 
   it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloNode-2"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloNode" + timestamp
     val file = Some(new File(nodejs8folder, "helloworld.js").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(nodejs8kind))
@@ -222,7 +229,8 @@ class HelloTests extends TestHelpers
     * Test the nodejs 6 "hello world" template
     */
   it should "invoke nodejs 6 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloNode6"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloNode" + timestamp
     val file = Some(new File(nodejs6folder, "helloworld.js").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(nodejs6kind))
@@ -233,7 +241,8 @@ class HelloTests extends TestHelpers
     }
   }
   it should "invoke nodejs 6 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloNode6-2"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloNode" + timestamp
     val file = Some(new File(nodejs6folder, "helloworld.js").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(nodejs6kind))
@@ -247,7 +256,8 @@ class HelloTests extends TestHelpers
     * Test the php "hello world" template
     */
   it should "invoke helloworld.php and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloPhp"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloPhp" + timestamp
     val file = Some(new File(phpfolder, "helloworld.php").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(phpkind))
@@ -258,7 +268,8 @@ class HelloTests extends TestHelpers
     }
   }
   it should "invoke helloworld.php without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloPhp-2"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloPhp" + timestamp
     val file = Some(new File(phpfolder, "helloworld.php").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(phpkind))
@@ -272,7 +283,8 @@ class HelloTests extends TestHelpers
     * Test the python "hello world" template
     */
   it should "invoke helloworld.py and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloPython"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloPython" + timestamp
     val file = Some(new File(pythonfolder, "helloworld.py").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(pythonkind))
@@ -283,7 +295,8 @@ class HelloTests extends TestHelpers
   }
 
   it should "invoke helloworld.py without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloPython-2"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloPython" + timestamp
     val file = Some(new File(pythonfolder, "helloworld.py").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(pythonkind))
@@ -298,7 +311,8 @@ class HelloTests extends TestHelpers
     * Test the swift "hello world" template
     */
   it should "invoke helloworld.swift and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloSwift"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloSwift" + timestamp
     val file = Some(new File(swiftfolder, "helloworld.swift").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(swiftkind))
@@ -310,7 +324,8 @@ class HelloTests extends TestHelpers
   }
 
   it should "invoke helloworld.swift without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val name = "helloSwift-2"
+    val timestamp: String = System.currentTimeMillis.toString
+    val name = "helloSwift" + timestamp
     val file = Some(new File(swiftfolder, "helloworld.swift").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
       action.create(name, file, kind = Some(swiftkind))
