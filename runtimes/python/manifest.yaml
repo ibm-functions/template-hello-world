@@ -4,13 +4,12 @@
 #   Package:  openwhisk-helloworld
 #   Action:   openwhisk-helloworld/helloworld.js
 
-project:
+packages:
   namespace: _
-  packages:
-    $PACKAGE_NAME:
-      version: 1.0
-      license: Apache-2.0
-      actions:
-        helloworld:
-          function: actions/helloworld.py
-          runtime: python-jessie:3
+  $PACKAGE_NAME:
+    version: 1.0
+    license: Apache-2.0
+    actions:
+      helloworld:
+        function: actions/helloworld.py
+        runtime: python-jessie:3
