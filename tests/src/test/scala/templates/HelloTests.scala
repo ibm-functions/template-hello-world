@@ -17,7 +17,6 @@
 
 package packages
 
-
 import org.junit.runner.RunWith
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.junit.JUnitRunner
@@ -28,12 +27,8 @@ import com.jayway.restassured.RestAssured
 import com.jayway.restassured.config.SSLConfig
 import spray.json._
 import spray.json.DefaultJsonProtocol._
-
-
 @RunWith(classOf[JUnitRunner])
-class HelloTests extends TestHelpers
-  with WskTestHelpers
-  with BeforeAndAfterAll {
+class HelloTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll {
 
   implicit val wskprops = WskProps()
   val wsk = new Wsk()
@@ -63,7 +58,7 @@ class HelloTests extends TestHelpers
 
   // status from deployWeb
   val successStatus =
-    """"status":"success""""
+    """"status": "success""""
 
   behavior of "Hello World Template"
 
@@ -74,13 +69,15 @@ class HelloTests extends TestHelpers
     val nodejs8Package = packageName + timestamp
     val nodejs8HelloWorldAction = nodejs8Package + "/" + helloWorldAction
 
-    makePostCallWithExpectedResult(JsObject(
-      "gitUrl" -> JsString(deployTestRepo),
-      "manifestPath" -> JsString(node8RuntimePath),
-      "envData" -> JsObject("PACKAGE_NAME" -> JsString(nodejs8Package)),
-      "wskApiHost" -> JsString(wskprops.apihost),
-      "wskAuth" -> JsString(wskprops.authKey)
-    ), successStatus, 200);
+    makePostCallWithExpectedResult(
+      JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(node8RuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(nodejs8Package)),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)),
+      successStatus,
+      200);
 
     withActivation(wsk.activation, wsk.action.invoke(nodejs8HelloWorldAction)) {
       _.response.result.get.toString should include("stranger")
@@ -100,13 +97,15 @@ class HelloTests extends TestHelpers
     val nodejs6Package = packageName + timestamp
     val nodejs6HelloWorldAction = nodejs6Package + "/" + helloWorldAction
 
-    makePostCallWithExpectedResult(JsObject(
-      "gitUrl" -> JsString(deployTestRepo),
-      "manifestPath" -> JsString(node6RuntimePath),
-      "envData" -> JsObject("PACKAGE_NAME" -> JsString(nodejs6Package)),
-      "wskApiHost" -> JsString(wskprops.apihost),
-      "wskAuth" -> JsString(wskprops.authKey)
-    ), successStatus, 200);
+    makePostCallWithExpectedResult(
+      JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(node6RuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(nodejs6Package)),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)),
+      successStatus,
+      200);
 
     withActivation(wsk.activation, wsk.action.invoke(nodejs6HelloWorldAction)) {
       _.response.result.get.toString should include("stranger")
@@ -126,13 +125,15 @@ class HelloTests extends TestHelpers
     val phpPackage = packageName + timestamp
     val phpHelloWorldAction = phpPackage + "/" + helloWorldAction
 
-    makePostCallWithExpectedResult(JsObject(
-      "gitUrl" -> JsString(deployTestRepo),
-      "manifestPath" -> JsString(phpRuntimePath),
-      "envData" -> JsObject("PACKAGE_NAME" -> JsString(phpPackage)),
-      "wskApiHost" -> JsString(wskprops.apihost),
-      "wskAuth" -> JsString(wskprops.authKey)
-    ), successStatus, 200);
+    makePostCallWithExpectedResult(
+      JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(phpRuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(phpPackage)),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)),
+      successStatus,
+      200);
 
     withActivation(wsk.activation, wsk.action.invoke(phpHelloWorldAction)) {
       _.response.result.get.toString should include("stranger")
@@ -152,13 +153,15 @@ class HelloTests extends TestHelpers
     val pythonPackage = packageName + timestamp
     val pythonHelloWorldAction = pythonPackage + "/" + helloWorldAction
 
-    makePostCallWithExpectedResult(JsObject(
-      "gitUrl" -> JsString(deployTestRepo),
-      "manifestPath" -> JsString(pythonRuntimePath),
-      "envData" -> JsObject("PACKAGE_NAME" -> JsString(pythonPackage)),
-      "wskApiHost" -> JsString(wskprops.apihost),
-      "wskAuth" -> JsString(wskprops.authKey)
-    ), successStatus, 200);
+    makePostCallWithExpectedResult(
+      JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(pythonRuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(pythonPackage)),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)),
+      successStatus,
+      200);
 
     withActivation(wsk.activation, wsk.action.invoke(pythonHelloWorldAction)) {
       _.response.result.get.toString should include("stranger")
@@ -178,13 +181,15 @@ class HelloTests extends TestHelpers
     val swiftPackage = packageName + timestamp
     val swiftHelloWorldAction = swiftPackage + "/" + helloWorldAction
 
-    makePostCallWithExpectedResult(JsObject(
-      "gitUrl" -> JsString(deployTestRepo),
-      "manifestPath" -> JsString(swiftRuntimePath),
-      "envData" -> JsObject("PACKAGE_NAME" -> JsString(swiftPackage)),
-      "wskApiHost" -> JsString(wskprops.apihost),
-      "wskAuth" -> JsString(wskprops.authKey)
-    ), successStatus, 200);
+    makePostCallWithExpectedResult(
+      JsObject(
+        "gitUrl" -> JsString(deployTestRepo),
+        "manifestPath" -> JsString(swiftRuntimePath),
+        "envData" -> JsObject("PACKAGE_NAME" -> JsString(swiftPackage)),
+        "wskApiHost" -> JsString(wskprops.apihost),
+        "wskAuth" -> JsString(wskprops.authKey)),
+      successStatus,
+      200);
 
     withActivation(wsk.activation, wsk.action.invoke(swiftHelloWorldAction)) {
       _.response.result.get.toString should include("stranger")
@@ -196,9 +201,10 @@ class HelloTests extends TestHelpers
     // clean up after test
     wsk.action.delete(swiftHelloWorldAction)
   }
+
   /**
-    * Test the nodejs 8 "hello world" template
-    */
+   * Test the nodejs 8 "hello world" template
+   */
   it should "invoke nodejs 8 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
     val timestamp: String = System.currentTimeMillis.toString
     val name = "helloNode" + timestamp
@@ -212,21 +218,23 @@ class HelloTests extends TestHelpers
     }
   }
 
-  it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val timestamp: String = System.currentTimeMillis.toString
-    val name = "helloNode" + timestamp
-    val file = Some(new File(nodejs8folder, "helloworld.js").toString());
-    assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-      action.create(name, file, kind = Some(nodejs8kind))
-    }
+  it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) {
+    (wp, assetHelper) =>
+      val timestamp: String = System.currentTimeMillis.toString
+      val name = "helloNode" + timestamp
+      val file = Some(new File(nodejs8folder, "helloworld.js").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(nodejs8kind))
+      }
 
-    withActivation(wsk.activation, wsk.action.invoke(name)) {
-      _.response.result.get.toString should include("stranger")
-    }
+      withActivation(wsk.activation, wsk.action.invoke(name)) {
+        _.response.result.get.toString should include("stranger")
+      }
   }
+
   /**
-    * Test the nodejs 6 "hello world" template
-    */
+   * Test the nodejs 6 "hello world" template
+   */
   it should "invoke nodejs 6 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
     val timestamp: String = System.currentTimeMillis.toString
     val name = "helloNode" + timestamp
@@ -239,21 +247,23 @@ class HelloTests extends TestHelpers
       _.response.result.get.toString should include("Mindy")
     }
   }
-  it should "invoke nodejs 6 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val timestamp: String = System.currentTimeMillis.toString
-    val name = "helloNode" + timestamp
-    val file = Some(new File(nodejs6folder, "helloworld.js").toString());
-    assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-      action.create(name, file, kind = Some(nodejs6kind))
-    }
+  it should "invoke nodejs 6 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) {
+    (wp, assetHelper) =>
+      val timestamp: String = System.currentTimeMillis.toString
+      val name = "helloNode" + timestamp
+      val file = Some(new File(nodejs6folder, "helloworld.js").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(nodejs6kind))
+      }
 
-    withActivation(wsk.activation, wsk.action.invoke(name)) {
-      _.response.result.get.toString should include("stranger")
-    }
+      withActivation(wsk.activation, wsk.action.invoke(name)) {
+        _.response.result.get.toString should include("stranger")
+      }
   }
+
   /**
-    * Test the php "hello world" template
-    */
+   * Test the php "hello world" template
+   */
   it should "invoke helloworld.php and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
     val timestamp: String = System.currentTimeMillis.toString
     val name = "helloPhp" + timestamp
@@ -278,9 +288,10 @@ class HelloTests extends TestHelpers
       _.response.result.get.toString should include("stranger")
     }
   }
+
   /**
-    * Test the python "hello world" template
-    */
+   * Test the python "hello world" template
+   */
   it should "invoke helloworld.py and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
     val timestamp: String = System.currentTimeMillis.toString
     val name = "helloPython" + timestamp
@@ -307,8 +318,8 @@ class HelloTests extends TestHelpers
   }
 
   /**
-    * Test the swift "hello world" template
-    */
+   * Test the swift "hello world" template
+   */
   it should "invoke helloworld.swift and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
     val timestamp: String = System.currentTimeMillis.toString
     val name = "helloSwift" + timestamp
@@ -322,21 +333,23 @@ class HelloTests extends TestHelpers
     }
   }
 
-  it should "invoke helloworld.swift without input and get stranger" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val timestamp: String = System.currentTimeMillis.toString
-    val name = "helloSwift" + timestamp
-    val file = Some(new File(swiftfolder, "helloworld.swift").toString());
-    assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-      action.create(name, file, kind = Some(swiftkind))
-    }
+  it should "invoke helloworld.swift without input and get stranger" in withAssetCleaner(wskprops) {
+    (wp, assetHelper) =>
+      val timestamp: String = System.currentTimeMillis.toString
+      val name = "helloSwift" + timestamp
+      val file = Some(new File(swiftfolder, "helloworld.swift").toString());
+      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
+        action.create(name, file, kind = Some(swiftkind))
+      }
 
-    withActivation(wsk.activation, wsk.action.invoke(name)) {
-      _.response.result.get.toString should include("stranger")
-    }
+      withActivation(wsk.activation, wsk.action.invoke(name)) {
+        _.response.result.get.toString should include("stranger")
+      }
   }
 
   private def makePostCallWithExpectedResult(params: JsObject, expectedResult: String, expectedCode: Int) = {
-    val response = RestAssured.given()
+    val response = RestAssured
+      .given()
       .contentType("application/json\r\n")
       .config(RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation()))
       .body(params.toString())

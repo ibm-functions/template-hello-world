@@ -1,10 +1,15 @@
 # Tests
 /tests/build
 /tests/out
+/tests/bin
 
 # Gradle
 .gradle
 
 # IntelliJ
 *.iml
-*.idea 
+*.idea
+
+# Eclipse
+.project
+
