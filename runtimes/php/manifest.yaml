@@ -13,4 +13,4 @@ project:
       actions:
         helloworld:
           function: actions/helloworld.php
-          runtime: php:7.2
+          runtime: php:7.3

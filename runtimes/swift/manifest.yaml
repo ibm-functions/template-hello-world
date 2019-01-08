@@ -13,4 +13,4 @@ project:
       actions:
         helloworld:
           function: actions/helloworld.swift
-          runtime: swift:4.1
+          runtime: swift:4.2
