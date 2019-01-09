@@ -40,21 +40,18 @@ class HelloTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll 
   val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
 
   //set parameters for deploy tests
-  val node8RuntimePath = "runtimes/nodejs"
-  val nodejs8folder = "../runtimes/nodejs/actions";
-  val nodejs8kind = "nodejs:8"
-  val node6RuntimePath = "runtimes/nodejs-6"
-  val nodejs6folder = "../runtimes/nodejs-6/actions";
-  val nodejs6kind = "nodejs:6"
+  val nodejsRuntimePath = "runtimes/nodejs"
+  val nodejsfolder = "../runtimes/nodejs/actions";
+  val nodejskind = "nodejs:10"
   val phpRuntimePath = "runtimes/php"
   val phpfolder = "../runtimes/php/actions";
-  val phpkind = "php:7.2"
+  val phpkind = "php:7.3"
   val pythonRuntimePath = "runtimes/python"
   val pythonfolder = "../runtimes/python/actions";
   val pythonkind = "python:3.7"
   val swiftRuntimePath = "runtimes/swift"
   val swiftfolder = "../runtimes/swift/actions";
-  val swiftkind = "swift:4.1"
+  val swiftkind = "swift:4.2"
 
   // status from deployWeb
   val successStatus =
@@ -63,7 +60,7 @@ class HelloTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll 
   behavior of "Hello World Template"
 
   // test to create the hello world template from github url.  Will use preinstalled folder.
-  it should "create the nodejs 8 hello world action from github url" in {
+  it should "create the nodejs 10 hello world action from github url" in {
     // create unique asset names
     val timestamp: String = System.currentTimeMillis.toString
     val nodejs8Package = packageName + timestamp
@@ -72,7 +69,7 @@ class HelloTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll 
     makePostCallWithExpectedResult(
       JsObject(
         "gitUrl" -> JsString(deployTestRepo),
-        "manifestPath" -> JsString(node8RuntimePath),
+        "manifestPath" -> JsString(nodejsRuntimePath),
         "envData" -> JsObject("PACKAGE_NAME" -> JsString(nodejs8Package)),
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)),
@@ -84,38 +81,10 @@ class HelloTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll 
     }
 
     val action = wsk.action.get(nodejs8HelloWorldAction)
-    verifyAction(action, nodejs8HelloWorldAction, JsString(nodejs8kind))
+    verifyAction(action, nodejs8HelloWorldAction, JsString(nodejskind))
 
     // clean up after test
     wsk.action.delete(nodejs8HelloWorldAction)
-  }
-
-  // test to create the hello world template from github url.  Will use preinstalled folder.
-  it should "create the nodejs 6 hello world action from github url" in {
-    // create unique asset names
-    val timestamp: String = System.currentTimeMillis.toString
-    val nodejs6Package = packageName + timestamp
-    val nodejs6HelloWorldAction = nodejs6Package + "/" + helloWorldAction
-
-    makePostCallWithExpectedResult(
-      JsObject(
-        "gitUrl" -> JsString(deployTestRepo),
-        "manifestPath" -> JsString(node6RuntimePath),
-        "envData" -> JsObject("PACKAGE_NAME" -> JsString(nodejs6Package)),
-        "wskApiHost" -> JsString(wskprops.apihost),
-        "wskAuth" -> JsString(wskprops.authKey)),
-      successStatus,
-      200);
-
-    withActivation(wsk.activation, wsk.action.invoke(nodejs6HelloWorldAction)) {
-      _.response.result.get.toString should include("stranger")
-    }
-
-    val action = wsk.action.get(nodejs6HelloWorldAction)
-    verifyAction(action, nodejs6HelloWorldAction, JsString(nodejs6kind))
-
-    // clean up after test
-    wsk.action.delete(nodejs6HelloWorldAction)
   }
 
   // test to create the hello world template from github url.  Will use preinstalled folder.
@@ -203,14 +172,14 @@ class HelloTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll 
   }
 
   /**
-   * Test the nodejs 8 "hello world" template
+   * Test the nodejs 10 "hello world" template
    */
-  it should "invoke nodejs 8 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+  it should "invoke nodejs 10 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
     val timestamp: String = System.currentTimeMillis.toString
     val name = "helloNode" + timestamp
-    val file = Some(new File(nodejs8folder, "helloworld.js").toString());
+    val file = Some(new File(nodejsfolder, "helloworld.js").toString());
     assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-      action.create(name, file, kind = Some(nodejs8kind))
+      action.create(name, file, kind = Some(nodejskind))
     }
 
     withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
@@ -218,42 +187,13 @@ class HelloTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll 
     }
   }
 
-  it should "invoke nodejs 8 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) {
+  it should "invoke nodejs 10 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) {
     (wp, assetHelper) =>
       val timestamp: String = System.currentTimeMillis.toString
       val name = "helloNode" + timestamp
-      val file = Some(new File(nodejs8folder, "helloworld.js").toString());
+      val file = Some(new File(nodejsfolder, "helloworld.js").toString());
       assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-        action.create(name, file, kind = Some(nodejs8kind))
-      }
-
-      withActivation(wsk.activation, wsk.action.invoke(name)) {
-        _.response.result.get.toString should include("stranger")
-      }
-  }
-
-  /**
-   * Test the nodejs 6 "hello world" template
-   */
-  it should "invoke nodejs 6 helloworld.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-    val timestamp: String = System.currentTimeMillis.toString
-    val name = "helloNode" + timestamp
-    val file = Some(new File(nodejs6folder, "helloworld.js").toString());
-    assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-      action.create(name, file, kind = Some(nodejs6kind))
-    }
-
-    withActivation(wsk.activation, wsk.action.invoke(name, Map("name" -> "Mindy".toJson))) {
-      _.response.result.get.toString should include("Mindy")
-    }
-  }
-  it should "invoke nodejs 6 helloworld.js without input and get stranger" in withAssetCleaner(wskprops) {
-    (wp, assetHelper) =>
-      val timestamp: String = System.currentTimeMillis.toString
-      val name = "helloNode" + timestamp
-      val file = Some(new File(nodejs6folder, "helloworld.js").toString());
-      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-        action.create(name, file, kind = Some(nodejs6kind))
+        action.create(name, file, kind = Some(nodejskind))
       }
 
       withActivation(wsk.activation, wsk.action.invoke(name)) {
