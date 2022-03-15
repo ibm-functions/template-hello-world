@@ -13,4 +13,4 @@ project:
       actions:
         helloworld:
           function: actions/helloworld.js
-          runtime: nodejs:10
+          runtime: nodejs:12
