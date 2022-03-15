@@ -13,4 +13,4 @@ project:
       actions:
         helloworld:
           function: actions/helloworld.py
-          runtime: python:3.7
+          runtime: python:3.9
