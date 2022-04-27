@@ -43,7 +43,7 @@ class HelloTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll 
   //set parameters for deploy tests
   val nodejsRuntimePath = "runtimes/nodejs"
   val nodejsfolder = "../runtimes/nodejs/actions";
-  val nodejskind = "nodejs:12"
+  val nodejskind = "nodejs:16"
   val phpRuntimePath = "runtimes/php"
   val phpfolder = "../runtimes/php/actions";
   val phpkind = "php:7.4"

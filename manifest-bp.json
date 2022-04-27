@@ -8,8 +8,8 @@
   "commit": "3c9dd88a4877af1b0149c256ca40324b20eb07a6",
   "runtimes": [
     {
-      "name": "Node.js 12",
-      "kind": "nodejs:12",
+      "name": "Node.js 16",
+      "kind": "nodejs:16",
       "type": "nodejs"
     },
     {
